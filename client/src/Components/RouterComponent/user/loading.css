@@ -1,0 +1,81 @@
+
+#header {
+    top: 150px;
+    position: relative;
+    margin: auto;
+  text-align: center;
+    color: #F1C232;
+    font-family: 'Roboto';
+  }
+#loadingCircles {
+    position: relative;
+    width: 60px;
+    margin: auto;
+    top: -110px;
+}
+
+    .loadingCircle {
+      height: 4px;
+      position: relative;
+      width: 4px;
+      background: #F1C232;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px 0 rgba(0,0,0,0.125);
+    }
+
+    #loadingCircle1{
+      position: absolute;
+      left: 50px;
+      top: 0px;
+      animation: moveInCircle 2s infinite ease-in-out;
+    }
+
+    #loadingCircle2 {
+      position: absolute;
+      left: 0px;
+      top: -50px;
+      animation: moveInCircle 2s infinite ease-in-out;
+      animation-delay: -1s;
+    }
+
+    #loadingCircle3 {
+      position: absolute;
+      left: 50px;
+      top: -50px;
+      animation: moveInCircle 2s infinite ease-in-out;
+      animation-delay: -0.5s;
+    }
+
+    #loadingCircle4 {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      animation: moveInCircle 2s infinite ease-in-out;
+      animation-delay: -1.5s;
+    }
+  
+@keyframes moveInCircle{
+  0%{
+    left:50px;
+    top: 0px;
+  }
+  25%{
+    left: 0px;
+    top: 0px;
+  }
+  50%{
+    top: -50px;
+    transform: scale(3);
+    left: 0px;
+  }
+  75%{
+    top: -50px;
+    left: 50px;
+  }
+  100%{
+    top: 0px;
+    transform: scale(1);
+    left: 50px;
+  }
+}
+

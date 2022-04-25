@@ -1,0 +1,114 @@
+.title,
+.title:focus,
+.title:read-write {
+  color: #1e1e1e;
+  font-size: 1.2em;
+  /* position: absolute; */
+  top: 10%;
+  right: 5%;
+  z-index: 1000;
+  border-width: 0 0 2px 0;
+}
+
+.lab,
+.lab:focus,
+.lab:read-write {
+  color: #1e1e1e;
+  font-size: 1.2em;
+  /* position: absolute; */
+  top: 20%;
+  right: 5%;
+  z-index: 1000;
+  border-width: 0 0 2px 0;
+}
+
+.department,
+.department:focus,
+.department:read-write {
+  color: #1e1e1e;
+  font-size: 1.2em;
+  /* position: absolute; */
+  top: 30%;
+  right: 5%;
+  z-index: 1000;
+  border-width: 0 0 2px 0;
+}
+
+.year,
+.year:focus,
+.year:read-write {
+  color: #1e1e1e;
+  font-size: 1.2em;
+  /* position: absolute; */
+  top: 40%;
+  right: 5%;
+  z-index: 1000;
+  border-width: 0 0 2px 0;
+}
+
+.college,
+.college:focus,
+.college:read-write {
+  color: #1e1e1e;
+  font-size: 1.2em;
+  /* position: absolute; */
+  top: 50%;
+  right: 5%;
+  z-index: 1000;
+  border-width: 0 0 2px 0;
+}
+
+.search{
+  background-color: bisque;
+}
+
+.button1{
+  font-size: 1.2em;
+  position: absolute;
+  top: 2.5%;
+  right: 5%;
+  z-index: 1000;
+  background-color:#3F51B5 ;
+  border-radius: 5px;
+  padding: 5px;
+  color: white;
+}
+
+.button {
+  font-size: 1.5em;
+  position: absolute;
+  top: 55%;
+  right: 5%;
+  z-index: 1000;
+}
+.watermark {
+  content: none;
+  width: 100%;
+  height: 25px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  z-index: 1000;
+  background-color: aliceblue;
+  color: white;
+}
+.buttonr:active {
+  background-color: #2d3b89;
+ box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+.buttonr{
+  position: absolute;
+  top:0px;
+  right:30px
+
+}
+.blocks{
+  position: absolute;
+  top:100px;
+  right:10px
+}
+.pointer{
+  cursor: context-menu;}
+
+  

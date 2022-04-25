@@ -1,0 +1,17 @@
+.navhide1{
+    display: none;
+}
+@media (max-width:750px){
+    .navhide{
+        display: none;
+    }
+    .navhide1{
+        display: block;
+    }
+}
+@media (max-width:300px){
+    .navhide1{
+        display: none;
+    }
+}
+.pointer{cursor: pointer;}
