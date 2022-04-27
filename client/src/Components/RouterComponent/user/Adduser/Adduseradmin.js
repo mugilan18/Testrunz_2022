@@ -63,7 +63,7 @@ console.log(user)
     console.log(email)
     console.log(user.collegeName)
     console.log(user.department)
-    console.log(lab)
+    console.log("lab",lab)
     console.log(role)
     console.log("this is password", password)
     let usermail = {
@@ -71,19 +71,19 @@ console.log(user)
       email: email,
       password: password
     }
-    if (name === "" || null) {
+    if (!name) {
       console.log("no name")
       setNameerror("*Name required*")
     }
-    else if (email === "" || null) {
+    else if (!email) {
       console.log("no email")
       setEmailerror("*Email required*")
     }
-    else if (role === "" || null) {
+    else if (!role) {
       console.log("no role")
       setRoleerror("*Role required*")
     }
-    else if (lab === "" || null) {
+    else if (!lab) {
       alert("add lab")
     }
     else {
@@ -126,7 +126,7 @@ console.log(user)
 
                     Swal.fire(
                       'User Created',
-                      'Runz has beed Created and password is sent through mail',
+                      'User has been Created and password is sent through mail',
                       'success'
                     )
 

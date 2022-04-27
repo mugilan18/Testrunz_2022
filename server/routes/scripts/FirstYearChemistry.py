@@ -1,7 +1,6 @@
 from ast import Return
 import json
 
-from soupsieve import closest
 
 class FirstYChemistry:
     def __init__(self, arg):

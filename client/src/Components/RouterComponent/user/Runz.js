@@ -247,7 +247,7 @@ if(sharewith==""||null){
                 setBtnstatus(false)
                       Swal.fire(
                         'Shared',
-                        'Runz has beed shared and mailed',
+                        'Runz has been shared and mailed',
                         'success'
                       )
                       closeModale()

@@ -107,6 +107,7 @@ function Addusersuperadmin() {
 
     setCollege(aa)
     setDepartment()
+    setOptions2()
     setOptions3()
     setLeft()
     fetch(`${ApiUrl}/moreInfo/department`, {
@@ -144,27 +145,27 @@ function Addusersuperadmin() {
     console.log(department)
     console.log("this is password", password)
 
-    if (name === "" || null) {
+    if (!name) {
       alert("no name")
       // setNameerror("*Name required*")
     }
-    else if (email === "" || null) {
+    else if (!email) {
       alert("no email")
       // setEmailerror("*Email required*")
     }
-    else if (role === "" || null) {
+    else if (!role) {
       alert("no role")
       // setRoleerror("*Role required*")
     }
-    else if (right == "" || null) {
+    else if (!right) {
       alert("no lab")
       // setNameerror("*Name required*")
     }
-    else if (college === "" || null) {
+    else if (!college) {
       alert("no college")
       // setEmailerror("*Email required*")
     }
-    else if (department === "" || null) {
+    else if (!department) {
       alert("no department")
       // setRoleerror("*Role required*")
     }
@@ -213,7 +214,7 @@ function Addusersuperadmin() {
 
                     Swal.fire(
                       'User Created',
-                      'Runz has beed Created and password is sent through mail',
+                      'User has been Created and password is sent through mail',
                       'success'
                     )
 
@@ -420,7 +421,8 @@ function Addusersuperadmin() {
             size="small"
             value={college}
             onChange={(event, newValue) => {
-              fetchdepartment(newValue)
+              fetchdepartment(newValue);
+              setDepartment()
             }}
             options={options1.map((option) => option)}
             sx={{ width: 300 }}
@@ -439,7 +441,7 @@ function Addusersuperadmin() {
             value={department}
             onChange={(event, newValue) => {
               fetchlab(newValue)
-              console.log(newValue)
+              
             }}
             options={options2.map((option) => option)}
             id="controllable-states-demo"

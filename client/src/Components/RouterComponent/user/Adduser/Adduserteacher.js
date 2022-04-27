@@ -72,15 +72,15 @@ const Adduserteacher = () => {
       email: email,
       password: password
     }
-    if (name === "" || null) {
+    if (!name) {
       console.log("no name")
       setNameerror("*Name required*")
     }
-    else if (email === "" || null) {
+    else if (!email) {
       console.log("no email")
       setEmailerror("*Email required*")
     }
-    else if (role === "" || null) {
+    else if (!role) {
       console.log("no role")
       setRoleerror("*Role required*")
     }
@@ -123,7 +123,7 @@ const Adduserteacher = () => {
 
                     Swal.fire(
                       'User Created',
-                      'Runz has beed Created and password is sent through mail',
+                      'User has been Created and password is sent through mail',
                       'success'
                     )
 
