@@ -172,7 +172,7 @@ console.log(user)
       <br/>
      
       <div>
-      <label>email:&nbsp;&nbsp;</label>
+      <label>Email:&nbsp;&nbsp;</label>
       <TextField
         onChange={e => {
           setEmail(e.target.value)
@@ -193,7 +193,7 @@ console.log(user)
       <br/>
 
      <div>
-      <label>college:&nbsp;&nbsp; </label>
+      <label>College:&nbsp;&nbsp; </label>
       <TextField
         disabled
         id="outlined-size-small"

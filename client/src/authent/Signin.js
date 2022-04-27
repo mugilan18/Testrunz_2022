@@ -23,7 +23,8 @@ const Signin = () => {
   const vertical ="button"
   const horizontal = "center"
   const [cookies, setCookie, removeCookie] = useCookies(["userjwt"]);
-
+  const [emailerror, setEmailerror] = useState(false)
+  const [passworderror, setPassworderror] = useState(false)
 
 
   const handleClose = (event, reason) => {
@@ -40,6 +41,16 @@ const Signin = () => {
 
 
   const authsignin = () => {
+    setEmailerror(false)
+    setPassworderror(false)
+    if(!email){
+      setEmailerror(true)
+    }
+    else if(!password){
+      setPassworderror(true)
+    }
+    else{
+      setEmailerror(false)
     auth.signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         console.log("successfully signin")
@@ -84,6 +95,7 @@ const Signin = () => {
         setOpen(true);
       });
   }
+}
 
 
 
@@ -97,12 +109,21 @@ const Signin = () => {
               <form >
                 <h2>Sign In</h2>
                 <input
+                  style={{  borderStyle:emailerror?"solid" :"none",
+                    borderColor:emailerror?"#f1c232":"none",
+                    borderRadius:emailerror?"5px":"none",
+                  }}
                   onChange={e => setEmail(e.target.value)}
                   type="email"
                   value={email}
                   placeholder="Email"
                 />
                 <input
+                style={{  borderStyle:passworderror?"solid" :"none",
+                borderColor:passworderror?"#f1c232":"none",
+                borderRadius:emailerror?"5px":"none",
+
+              }}
                   onChange={e => setPassword(e.target.value)}
                   type="password"
                   placeholder="Password"

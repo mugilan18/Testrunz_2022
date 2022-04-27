@@ -106,7 +106,9 @@ function Addusersuperadmin() {
   const fetchdepartment = (aa) => {
 
     setCollege(aa)
-
+    setDepartment()
+    setOptions3()
+    setLeft()
     fetch(`${ApiUrl}/moreInfo/department`, {
       method: "POST",
 
@@ -375,7 +377,7 @@ function Addusersuperadmin() {
 
 
 <div>
-      <label>email :&nbsp;&nbsp; </label>
+      <label>Email :&nbsp;&nbsp; </label>
       <TextField
         onChange={e => {
           setEmail(e.target.value)
@@ -388,7 +390,7 @@ function Addusersuperadmin() {
 <br/>
 
 <div>
-      <label> role :&nbsp;&nbsp;</label>
+      <label> Role :&nbsp;&nbsp;</label>
       <FormControl sx={{ m: 1, minWidth: 120 }} >
       
         <Select

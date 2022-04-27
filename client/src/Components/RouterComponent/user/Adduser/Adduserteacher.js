@@ -171,7 +171,7 @@ const Adduserteacher = () => {
 
 
       <div>
-        <label>email : </label>
+        <label>Email : </label>
         <TextField
           onChange={e => {
             setEmail(e.target.value)
@@ -193,7 +193,7 @@ const Adduserteacher = () => {
 
 
       <div>
-        <label>college : </label>
+        <label>College : </label>
         <TextField
           disabled
           id="outlined-size-small"
