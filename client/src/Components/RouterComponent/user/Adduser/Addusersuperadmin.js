@@ -399,8 +399,8 @@ function Addusersuperadmin() {
           onChange={(e) => setRole(e.target.value)}
         >
           <MenuItem value={"admin"}>Admin</MenuItem>
-          <MenuItem value={"student"}>Student</MenuItem>
           <MenuItem value={"teacher"}>Teacher</MenuItem>
+          <MenuItem value={"student"}>Student</MenuItem>
 
         </Select>
        
@@ -488,7 +488,7 @@ function Addusersuperadmin() {
         null}
 
 
-      <Button onClick={createuser} variant='contained' style={{ backgroundColor: "#F1C232", color: "black" }}>Save</Button>
+      <Button onClick={createuser} variant='contained' style={{ backgroundColor: "#F1C232", color: "black" }}>Create User</Button>
     </div>
   );
 }

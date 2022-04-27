@@ -54,9 +54,11 @@ const Manageusertable = () => {
   const [role,setRole]=useState()
   const [college,setCollege]=useState()
   const [options1,setOptions1]=useState()
+  const [options2,setOptions2]=useState()
   const [country,setCountry]=useState()
   const [lablist,setLablist]=useState()
   const [year,setYear]=useState()
+  const [department,setDepartment]=useState()
   const [semester,setSemester]=useState()
   const [state,setState]=useState()
   const [newlab,setNewlab]=useState()
@@ -141,7 +143,28 @@ const Manageusertable = () => {
       }
  }   
 
+/// department fetch
+const fetchdepartment=(college)=>{
+  console.log(college)
+  fetch(`${ApiUrl}/moreInfo/department`, {
+    method: "POST",
 
+    body: JSON.stringify({
+      college:college
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }
+  })
+    .then(response => response.json())
+    .then(json => {
+
+      setOptions2(json.ids)
+
+      console.log(json)
+    }
+    );
+}
 
 /// college fetch
 const fetchcollege=()=>{
@@ -313,7 +336,7 @@ const patchsingle=(tag,value,id)=>{
 
         </Select>:null}
 
-<Button onClick={e=>patchsingle("role",role,detail._id)}>Update</Button>
+<Button onClick={e=>{patchsingle("role",role,detail._id);setEditrole(!editrole)}}>Update</Button>
 </>
 }</td >
   <td ><Button  onClick={()=>setEditrole(!editrole)}>{editrole?<><BiEditAlt/></>:<>cancel</>}</Button></td>
@@ -338,7 +361,7 @@ const patchsingle=(tag,value,id)=>{
             sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} />}
           /> 
-  <Button>Update</Button>
+  <Button onClick={e=>{patchsingle("college",college,detail._id);setEditcollegename(!editcollegename)}}>Update</Button>
   </>:null
   }
   </>}</td >
@@ -351,18 +374,47 @@ const patchsingle=(tag,value,id)=>{
 
   <tr >
   <td >country: {country} </td>
-  <td >{editcountry? detail.country:<><input value={country} onChange={e=>setCountry(e.target.value)}></input><Button onClick={()=>patchsingle("country",country,detail._id)}>Update</Button></>}</td >
+  <td >{editcountry? detail.country:<><input value={country} onChange={e=>setCountry(e.target.value)}></input><Button onClick={()=>{patchsingle("country",country,detail._id);setEditcountry(!editcountry)}}>Update</Button></>}</td >
   <td ><Button  onClick={()=>setEditcountry(!editcountry)}>{editcountry?<><BiEditAlt/></>:<>cancel</>}</Button></td>
   </tr>
  <br/>
 
-  <tr >
-  <td >department: </td>
-  <td >{editdepartment? detail.department:<><input></input><Button>Update</Button></>}</td >
-  <td >{user.role=="superadmin"?    <Button  onClick={()=>setEditdepartment(!editdepartment)}>{editdepartment?<><BiEditAlt/></>:<>cancel</>}</Button> : 
-    <Button disabled><BiEditAlt /></Button>
-}</td>
+
+
+
+ <tr>
+  <td >Department: </td>
+  <td >{editdepartment? detail.department:<>
+  {options2? 
+  <>
+     <Autocomplete
+            id="outlined-basic"
+            variant="outlined"
+            size="small"
+            value={department}
+            onChange={(event, newValue) => {
+              setDepartment(newValue)
+            }}
+            options={options2.map((option) => option)}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} />}
+          /> 
+  <Button onClick={e=>{patchsingle("department",department,detail._id);setEditdepartment(!editdepartment)}}>Update</Button>
+  </>:null
+  }
+  </>}</td >
+  <td >{user.role=="superadmin"?
+    <Button  onClick={()=>{setEditdepartment(!editdepartment);fetchdepartment(detail.collegeName)}}>{editdepartment?<><BiEditAlt/></>:<>cancel</>}</Button>
+    :<Button  disabled><BiEditAlt/></Button>}
+    </td>
   </tr>
+  <br/>
+
+
+
+
+
+  
   <br/>
 {detail.role=="student"?
   <tr >
@@ -381,7 +433,7 @@ const patchsingle=(tag,value,id)=>{
           <MenuItem value={3}>3</MenuItem>
           <MenuItem value={4}>4</MenuItem>
         </Select>
-  <Button onClick={()=>patchsingle("year",year,detail._id)}>Update</Button></>}</td >
+  <Button onClick={()=>{patchsingle("year",year,detail._id);setEdityear(!edityear)}}>Update</Button></>}</td >
   <td ><Button  onClick={()=>setEdityear(!edityear)}>{edityear?<><BiEditAlt/></>:<>cancel</>}</Button></td>
   </tr>:null}
   <br/>
@@ -390,7 +442,7 @@ const patchsingle=(tag,value,id)=>{
   <td >State:</td >
   <td >{editstate? detail.state:<>
     <input value={state} onChange={e=>setState(e.target.value)}></input>
-  <Button onClick={e=>patchsingle("state",state,detail._id)}>Update</Button></>}</td >
+  <Button onClick={e=>{patchsingle("state",state,detail._id);setEditstate(!editstate)}}>Update</Button></>}</td >
   <td ><Button onClick={()=>setEditstate(!editstate)}>{editstate?<><BiEditAlt/></>:<>cancel</>}</Button></td>
   </tr>
   <br/>
@@ -416,7 +468,7 @@ const patchsingle=(tag,value,id)=>{
           <MenuItem value={8}>8</MenuItem>
 
         </Select>
-  <Button onClick={()=>patchsingle("semester",semester,detail._id)}>Update</Button></>}</td >
+  <Button onClick={()=>{patchsingle("semester",semester,detail._id);setEditsemester(!editsemester)}}>Update</Button></>}</td >
   <td ><Button  onClick={()=>setEditsemester(!editsemester)}>{editsemester?<><BiEditAlt/></>:<>cancel</>}</Button></td>
   </tr>:null}
   <br/>
@@ -450,7 +502,9 @@ const patchsingle=(tag,value,id)=>{
     <Button onClick={()=>{
       let temp = [...lab,newlab]
       var sendlab = temp.filter(function (e) {return e != null;});
-      patchsingle("labtype",sendlab,detail._id)}
+      patchsingle("labtype",sendlab,detail._id);
+      setEditlabtype(!editlabtype)
+    }
       }>update</Button>
       </Grid>
       </Grid>

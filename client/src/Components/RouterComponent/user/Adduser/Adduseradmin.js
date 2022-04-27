@@ -229,8 +229,8 @@ console.log(user)
           onChange={(e) => setRole(e.target.value)}
           size="small"
         >
-          <MenuItem value={"student"}>Student</MenuItem>
           <MenuItem value={"teacher"}>Teacher</MenuItem>
+          <MenuItem value={"student"}>Student</MenuItem>
 
         </Select>
        
