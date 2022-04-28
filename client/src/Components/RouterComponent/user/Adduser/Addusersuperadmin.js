@@ -45,7 +45,7 @@ function Addusersuperadmin() {
 
   const [checked, setChecked] = React.useState([]);
   const [left, setLeft] = React.useState();
-  const [right, setRight] = React.useState([]);
+  const [right, setRight] = React.useState();
   const [password, setPassword] = useState("")
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
@@ -157,7 +157,7 @@ function Addusersuperadmin() {
       alert("no role")
       // setRoleerror("*Role required*")
     }
-    else if (!right) {
+    else if (!right.length) {
       alert("no lab")
       // setNameerror("*Name required*")
     }
@@ -177,7 +177,7 @@ function Addusersuperadmin() {
       }
       auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-
+         
           console.log("successfully Registered", userCredential)
 
           fetch(`${process.env.REACT_APP_API}/register`, {
@@ -196,6 +196,11 @@ function Addusersuperadmin() {
           }).then(response => response.json())
             .then(data => {
               // setOpen1(true);
+              Swal.fire(
+                'User Created',
+                'User has been Created successfully',
+                'success'
+              )
               /// send email
               axios.post(process.env.REACT_APP_API + "/usermail", usermail)
                 .then((res) => {
@@ -230,6 +235,11 @@ function Addusersuperadmin() {
               console.error('Error:', error);
               // setStatusmessage("Database not created")
               // setOpen(true);
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'User not registered contact testrunz developer',
+              })
             });
         })
         .catch((error) => {
@@ -237,6 +247,11 @@ function Addusersuperadmin() {
           var errorMessage = error.message;
           console.log("Failure1", errorMessage)
           console.log("Failure2", errorCode)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Authentication failed',
+          })
           // setStatusmessage(errorMessage)
           // setOpen(true);
         });

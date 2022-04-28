@@ -10,6 +10,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { ListItem } from '@material-ui/core';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -214,7 +215,7 @@ const Sidelayout = ({children}) => {
         key="Add User"
         onClick={()=>history.push("/adduser")}
         className={location.pathname== "/adduser" ? classes.active : null} >
-            <ListItemIcon><PlayCircleOutlineIcon/></ListItemIcon>
+            <ListItemIcon><PersonAddIcon/></ListItemIcon>
             <ListItemText primary="Add User"/>
         </ListItem>
 

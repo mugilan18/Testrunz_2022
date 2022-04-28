@@ -108,6 +108,13 @@ console.log(user)
           }).then(response => response.json())
             .then(data => {
               setOpen1(true);
+              console.log("created",data)
+              Swal.fire(
+                'User Created',
+                'User has been Created successfully',
+                'success'
+              )
+
               /// send email
               axios.post(process.env.REACT_APP_API + "/usermail", usermail)
                 .then((res) => {
@@ -116,7 +123,7 @@ console.log(user)
                     Swal.fire({
                       icon: 'error',
                       title: 'Oops...',
-                      text: 'Check the Email or internet connection',
+                      text: 'Check the Emailid or internet connection',
 
                     })
                   }
@@ -140,6 +147,11 @@ console.log(user)
             })
             .catch((error) => {
               console.error('Error:', error);
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'User not registered contact testrunz developer',
+              })
               setStatusmessage("Database not created")
               setOpen(true);
             });
@@ -151,6 +163,11 @@ console.log(user)
           console.log("Failure2", errorCode)
           setStatusmessage(errorMessage)
           setOpen(true);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Authentication failed',
+          })
         });
     }
   }

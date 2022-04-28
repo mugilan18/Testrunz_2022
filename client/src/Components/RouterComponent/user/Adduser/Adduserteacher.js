@@ -105,6 +105,11 @@ const Adduserteacher = () => {
           }).then(response => response.json())
             .then(data => {
               setOpen1(true);
+              Swal.fire(
+                'User Created',
+                'User has been Created successfully',
+                'success'
+              )
               /// send email
               axios.post(process.env.REACT_APP_API + "/usermail", usermail)
                 .then((res) => {
@@ -139,6 +144,12 @@ const Adduserteacher = () => {
               console.error('Error:', error);
               setStatusmessage("Database not created")
               setOpen(true);
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'User not registered contact testrunz developer',
+              })
+             
             });
         })
         .catch((error) => {
@@ -148,6 +159,11 @@ const Adduserteacher = () => {
           console.log("Failure2", errorCode)
           setStatusmessage(errorMessage)
           setOpen(true);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Authentication failed',
+          })
         });
     }
   }

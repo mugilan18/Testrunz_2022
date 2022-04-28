@@ -87,7 +87,7 @@ const [type,setType]=useState("");
     <p><span style={{fontWeight:"bold"}}>Feedback </span >&nbsp;&nbsp;&nbsp;<span style={{color:"#595958"}}>"Help us to improve"</span></p>
     <br/> <br/> 
     <FormControl>
-  <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+  <FormLabel id="demo-radio-buttons-group-label">Category</FormLabel>
   <RadioGroup
   row
     aria-labelledby="demo-radio-buttons-group-label"

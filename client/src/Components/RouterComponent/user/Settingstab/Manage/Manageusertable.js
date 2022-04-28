@@ -77,7 +77,19 @@ const Manageusertable = () => {
 
   const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setEditlabtype(true)
+  setEditrole(true)
+  setEditcollegename(true)
+  setEditcountry(true)
+  setEditdepartment(true)
+  setEditstate(true)
+  setEdityear(true)
+  setEditsemester(true)
+  setEditlabtype(true)
+  }
+
   const[detail,setDetail]=useState()
 
 
@@ -268,8 +280,8 @@ const patchsingle=(tag,value,id)=>{
    <>
    {/* {detail.name} <Link>edit <ModeEditIcon fontSize="small"/></Link> */}
    <tr>
-    <th colspan="3">Name</th>
-    <th>Age</th>
+    <th>Manage User</th>
+  
   </tr>
   <br/> 
 
@@ -373,7 +385,7 @@ const patchsingle=(tag,value,id)=>{
   <br/>
 
   <tr >
-  <td >country: {country} </td>
+  <td >Country: {country} </td>
   <td >{editcountry? detail.country:<><input value={country} onChange={e=>setCountry(e.target.value)}></input><Button onClick={()=>{patchsingle("country",country,detail._id);setEditcountry(!editcountry)}}>Update</Button></>}</td >
   <td ><Button  onClick={()=>setEditcountry(!editcountry)}>{editcountry?<><BiEditAlt/></>:<>cancel</>}</Button></td>
   </tr>
@@ -475,10 +487,8 @@ const patchsingle=(tag,value,id)=>{
 
    {detail.labtype?
    <>
-     <tr><td >list </td><td > Labs available</td>
-     <td ><Button  onClick={()=>{setEditlabtype(!editlabtype);fetchlab()}}>{editlabtype?<><BiEditAlt/></>:<>cancel</>}</Button></td>
-     </tr>
-    {editlabtype?null:
+     <tr><td >list </td>
+     <td >{editlabtype?null:
     
     lablist?
     <Grid
@@ -509,7 +519,41 @@ const patchsingle=(tag,value,id)=>{
       </Grid>
       </Grid>
       :null
-}
+}</td>
+     <td ><Button  onClick={()=>{setEditlabtype(!editlabtype);fetchlab()}}>{editlabtype?<><BiEditAlt/></>:<>cancel</>}</Button></td>
+     </tr>
+    {/* {editlabtype?null:
+    
+    lablist?
+    <Grid
+  container
+  direction="row"
+  justifyContent="flex-start"
+  alignItems="center"
+>
+<Grid item>
+  <Autocomplete
+      size="small"
+      onChange={(event, newValue) => {
+        setNewlab(newValue)
+      }}
+      options={(lablist).map((option) => option)}
+      sx={{ width: 300 }}
+      renderInput={(params) => <TextField {...params}  />}
+    />
+    </Grid>
+    <Grid item>
+    <Button onClick={()=>{
+      let temp = [...lab,newlab]
+      var sendlab = temp.filter(function (e) {return e != null;});
+      patchsingle("labtype",sendlab,detail._id);
+      setEditlabtype(!editlabtype)
+    }
+      }>update</Button>
+      </Grid>
+      </Grid>
+      :null
+} */}
 <br/>
     {lab ?
     
@@ -544,7 +588,7 @@ const patchsingle=(tag,value,id)=>{
         <MaterialTable
           columns={columns}
           data={userlist}
-          title="List Of User Super Admin"
+          title="List Of User"
           options={{
             actionsColumnIndex: -1, grouping: true, pageSizeOptions: [5, 10, 15], pageSize: 10, headerStyle: {
               zIndex: 0
@@ -556,7 +600,7 @@ const patchsingle=(tag,value,id)=>{
         <MaterialTable
         columns={columns}
         data={userlist}
-        title="List Of User "
+        title="List Of User"
         options={{
           actionsColumnIndex: -1, grouping: true, pageSizeOptions: [5, 10, 15], pageSize: 10, headerStyle: {
             zIndex: 0

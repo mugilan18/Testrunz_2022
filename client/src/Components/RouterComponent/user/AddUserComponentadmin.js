@@ -52,9 +52,9 @@ const AddUserComponentadmin = (props) => {
 
   const classes = useStyles();
   const [data, setData] = useState(intialValue);
-  const [options, setOptions] = useState([]);
-  const [options1, setOptions1] = useState([]);
-  const [options2, setOptions2] = useState([]);
+  const [options, setOptions] = useState();
+  const [options1, setOptions1] = useState();
+  const [options2, setOptions2] = useState();
 
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = useState(null);
@@ -103,6 +103,11 @@ const [department,setDepartment]=useState()
   // }, [labTypetosent]);
 
   const fetchlab = (aa) => {
+    setLabTypetosent()
+    setExperimentNametosent()
+    setOptions1()
+    setOptions2()
+
     console.log("heheheeh", aa)
     setDepartment(aa)
     fetch(`${ApiUrl}/moreInfo/labs`, {
@@ -129,6 +134,9 @@ const [department,setDepartment]=useState()
 
   const fetchexperiment = (newValue) => {
     setLabTypetosent(newValue);
+    setExperimentNametosent()
+   
+    setOptions2()
     // setOptions1([])
     fetch(`${ApiUrl}/moreInfo/experiment`, {
       method: "POST",
@@ -234,7 +242,7 @@ const [department,setDepartment]=useState()
           onChange={onChange}
         />
         <p className='errormsg'>{descriptionerror}</p>
-        <label>Department</label>
+     {options && <>   <label>Department</label>
         <Autocomplete
                 value={department}
                 onChange={(event, newValue) => {
@@ -248,9 +256,11 @@ const [department,setDepartment]=useState()
                 sx={{ width: 300 }}
                 renderInput={(params) => <TextField {...params} />}
               />
-        <p className='errormsg'>{laberror}</p>
+       
+        </>
+}
 
-        <label>Lab Name</label>
+     {options1 &&<> <label>Lab Name</label>
         <Autocomplete
         value={labTypetosent}
         onChange={(event, newValue) => {
@@ -262,9 +272,12 @@ const [department,setDepartment]=useState()
         sx={{ width: 300 }}
         renderInput={(params) => <TextField {...params} />}
       />
-
-         <label>Procedure Name</label>
+       <p className='errormsg'>{laberror}</p>
+      </> 
+}
+     {options2&&<>   <label>Procedure Name</label>
         <Autocomplete
+        
         value={experimentNametosent}
         onChange={(event, newValue) => {
           setExperimentNametosent(newValue);
@@ -277,6 +290,8 @@ const [department,setDepartment]=useState()
       /> 
      
         <p className='errormsg'>{procedureerror}</p>
+        </> 
+}
         <br />
         <Button variant="contained"   style={{ backgroundColor:"#F1C232",color:"black" }} onClick={saveUser}>
           Save
