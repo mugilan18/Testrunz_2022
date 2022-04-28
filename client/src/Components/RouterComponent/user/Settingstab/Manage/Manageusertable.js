@@ -385,7 +385,7 @@ const patchsingle=(tag,value,id)=>{
   <br/>
 
   <tr >
-  <td >Country: {country} </td>
+  <td >Country:</td>
   <td >{editcountry? detail.country:<><input value={country} onChange={e=>setCountry(e.target.value)}></input><Button onClick={()=>{patchsingle("country",country,detail._id);setEditcountry(!editcountry)}}>Update</Button></>}</td >
   <td ><Button  onClick={()=>setEditcountry(!editcountry)}>{editcountry?<><BiEditAlt/></>:<>cancel</>}</Button></td>
   </tr>
@@ -487,7 +487,7 @@ const patchsingle=(tag,value,id)=>{
 
    {detail.labtype?
    <>
-     <tr><td >list </td>
+     <tr><td >List of labs available </td>
      <td >{editlabtype?null:
     
     lablist?

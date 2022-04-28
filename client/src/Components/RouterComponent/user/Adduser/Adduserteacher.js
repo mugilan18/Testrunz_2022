@@ -118,7 +118,7 @@ const Adduserteacher = () => {
                     Swal.fire({
                       icon: 'error',
                       title: 'Oops...',
-                      text: 'Check the Email or internet connection',
+                      text: 'Created with invalid email',
 
                     })
                   }

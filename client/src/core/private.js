@@ -192,6 +192,8 @@ return (
 
         {(showOnce === false) && (<> <p className="lead text-center">Profile Update</p>
           <form>
+           
+          {   !collegeName &&   <>      
             <div className="form-group">
               <label className="text-muted">College Name</label>
               <input
@@ -202,8 +204,9 @@ return (
               />
             </div>
             <p className='errormsg'>{collegenameerror}</p>
+            </>}
             
-            <div className="form-group">
+    {   !department &&   <>  <div className="form-group">
               <label className="text-muted">Department</label>
               <input
                 onChange={e => setDepartment(e.target.value)}
@@ -213,6 +216,9 @@ return (
               />
             </div>
             <p className='errormsg'>{departmenterror}</p>
+            </>
+
+}
             <div className="form-group">
               <label className="text-muted">Country</label>
               <input

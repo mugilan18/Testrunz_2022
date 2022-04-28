@@ -114,7 +114,7 @@ const Mypage = () => {
      { title: "Lab Name", field: "labname", width:"15%"},
      { title: "Procedure ID    ", field: "ProcedureId",width:"18%" ,sorting:false },
     { title: "Submitted By", field: "studentName",width:"18%" },
-    { title: "Submited Time", field: "sharedDates" },
+    { title: "Submitted Time", field: "sharedDates" },
   ];
 
 
@@ -204,7 +204,7 @@ const Mypage = () => {
         <MaterialTable
           columns={columns1}
           data={rows}
-          title="Submited"
+          title="Submitted"
           onRowClick= {(e,data) => playUser(data.ProcedureId)}
           options={{
             actionsColumnIndex: -1, grouping:true,  pageSizeOptions:[5,10,15],pageSize:10,headerStyle: {

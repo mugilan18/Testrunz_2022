@@ -123,7 +123,7 @@ console.log(user)
                     Swal.fire({
                       icon: 'error',
                       title: 'Oops...',
-                      text: 'Check the Emailid or internet connection',
+                      text: 'Created with invalid email',
 
                     })
                   }
