@@ -119,10 +119,10 @@ const AddUserComponent = (props) => {
       setDescriptionerror("*Write some descriptions*")
     }
     else if (!labTypetosent) {
-      setLaberror("*choose a lab type*")
+      setLaberror("*Choose a lab type*")
     }
     else if (!experimentNametosent) {
-      setProcedureerrorr("*select a experiment from the list*")
+      setProcedureerrorr("*Select an experiment from the list*")
     }
     else {
       console.log("labtype",labTypetosent)

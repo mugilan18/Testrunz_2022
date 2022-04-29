@@ -142,6 +142,7 @@ const getExplist = async function (req, res, next) {
 const getLabsfromdepartment = async function (req, res, next) {
   department = req.body.department
   college = req.body.college
+  console.log(req.body)
   try {
     const metas = await MetaInfo.aggregate( [
         {$match: { $and: [ { $or : [

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import * as XLSX from "xlsx";
 
-function Inventry() {
+function Inventory() {
   const [items, setItems] = useState([]);
 
   const readExcel = (file) => {
@@ -38,7 +38,7 @@ function Inventry() {
 
   return (
     <div>
-      <input
+      {/* <input
         type="file"
         onChange={(e) => {
           const file = e.target.files[0];
@@ -61,10 +61,10 @@ function Inventry() {
             </tr>
           ))}
         </tbody>
-      </table>
+      </table> */}
     </div>
   );
 }
 
 
-export default Inventry
+export default Inventory

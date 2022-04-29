@@ -33,6 +33,6 @@ router.post("/experiment",getExplist)
 router.post("/labs/depandclg",getLabsfromdepartment)
 
 router.post("/selected",getSelectedExplist)
-
+ 
 
 module.exports = router;

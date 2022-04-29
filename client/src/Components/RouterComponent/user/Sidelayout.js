@@ -203,11 +203,11 @@ const Sidelayout = ({children}) => {
 
         <ListItem 
          button 
-        key="Inventry"
-        onClick={()=>history.push("/inventry")}
-        className={location.pathname== "/inventry" ? classes.active : null} >
+        key="Inventory"
+        onClick={()=>history.push("/inventory")}
+        className={location.pathname== "/inventory" ? classes.active : null} >
             <ListItemIcon><InventoryIcon/></ListItemIcon>
-            <ListItemText primary="Inventry"/>
+            <ListItemText primary="Inventory"/>
         </ListItem>
 
         <ListItem 

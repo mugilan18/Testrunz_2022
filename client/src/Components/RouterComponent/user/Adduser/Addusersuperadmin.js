@@ -22,6 +22,14 @@ import axios from 'axios';
 import Swal from 'sweetalert2'
 
 import ApiUrl from '../../../../ServerApi';
+
+
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+
+const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+const checkedIcon = <CheckBoxIcon fontSize="small" />;
+
 function not(a, b) {
   return a.filter((value) => b.indexOf(value) === -1);
 }
@@ -140,7 +148,7 @@ function Addusersuperadmin() {
     console.log(name)
     console.log(email)
     console.log(role)
-    console.log(right)
+    console.log("right",right)
     console.log(college)
     console.log(department)
     console.log("this is password", password)
@@ -473,7 +481,7 @@ function Addusersuperadmin() {
       {left ?
         <>
           <label> Labs :&nbsp;&nbsp;</label>
-          <Grid container spacing={2} justifyContent="center" alignItems="center">
+          {/* <Grid container spacing={2} justifyContent="center" alignItems="center">
             <Grid item>{customList('Choices', left)}</Grid>
             <Grid item>
               <Grid container direction="column" alignItems="center">
@@ -500,7 +508,30 @@ function Addusersuperadmin() {
               </Grid>
             </Grid>
             <Grid item>{customList('Chosen', right)}</Grid>
-          </Grid>
+          </Grid> */}
+           <Autocomplete
+      multiple
+      id="checkboxes-tags-demo"
+      options={left}
+      disableCloseOnSelect
+      getOptionLabel={(option) => option}
+      onChange={(event,value)=>setRight(value)}
+      renderOption={(props, option, { selected }) => (
+        <li {...props}>
+          <Checkbox
+            icon={icon}
+            checkedIcon={checkedIcon}
+            style={{ marginRight: 8 }}
+            checked={selected}
+          />
+          {option}
+        </li>
+      )}
+      style={{ width: 500 }}
+      renderInput={(params) => (
+        <TextField {...params}   />
+      )}
+    />
         </>
 
         :

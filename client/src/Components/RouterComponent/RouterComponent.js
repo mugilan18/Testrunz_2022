@@ -33,13 +33,11 @@ import Settings from "./user/Settings";
 import Support from "./user/Support";
 import { useStateValue } from "../../data/StateProvider";
 import { actionTypes } from "../../data/reducer";
-import Inventry from "./user/Inventry/inventry";
+import Inventory from "./user/Inventory/Inventory";
 const RouterComponent = (props) => {
   const [{ user }, dispatch] = useStateValue();
  
   const [cookies, setCookie, removeCookie] = useCookies(["userjwt"]);
-
-
 
 
 
@@ -75,7 +73,7 @@ const RouterComponent = (props) => {
             <PrivateRoute path="/support" exact component={Support} auth={props.user}/> 
             <PrivateRoute path="/add-user" exact component={AddUserComponent} auth={props.user}/>
             <PrivateRoute path="/adduser" exact component={Adduser} auth={props.user}/>
-            <PrivateRoute path="/inventry" exact component={Inventry} auth={props.user}/>
+            <PrivateRoute path="/inventory" exact component={Inventory} auth={props.user}/>
 
             {/* <PrivateRoute
               path="/edit-user"

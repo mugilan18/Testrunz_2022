@@ -128,11 +128,11 @@ const Manageusertable = () => {
         method: "POST",
         body: JSON.stringify({
           department: detail.department,
-          college:detail.college
+          college:detail.collegeName
         }),
         headers: {
           "Content-type": "application/json; charset=UTF-8"
-        }
+        } 
       })
         .then(response => response.json())
         .then(json => {
@@ -329,7 +329,6 @@ const patchsingle=(tag,value,id)=>{
           onChange={(e) => setRole(e.target.value)}
         >
        
-          <MenuItem value={"admin"}>Admin</MenuItem>
           <MenuItem value={"teacher"}>Teacher</MenuItem>
           <MenuItem value={"student"}>Student</MenuItem>
 
@@ -373,7 +372,7 @@ const patchsingle=(tag,value,id)=>{
             sx={{ width: 300 }}
             renderInput={(params) => <TextField {...params} />}
           /> 
-  <Button onClick={e=>{patchsingle("college",college,detail._id);setEditcollegename(!editcollegename)}}>Update</Button>
+  <Button onClick={e=>{patchsingle("collegeName",college,detail._id);setEditcollegename(!editcollegename)}}>Update</Button>
   </>:null
   }
   </>}</td >

@@ -27,6 +27,7 @@ const Adduserteacher = () => {
   const [password, setPassword] = useState("")
   const [statusmessage, setStatusmessage] = useState("")
   const [lab, setLab] = useState("")
+  const [laberror, setLaberror] = useState()
   const vertical = "button"
   const horizontal = "center"
 
@@ -60,13 +61,14 @@ const Adduserteacher = () => {
     console.log(email)
     console.log(user.collegeName)
     console.log(user.department)
-    // console.log(right)
+    console.log(lab)
     console.log(role)
     console.log("this is password", password)
     e.preventDefault();
     setNameerror()
     setEmailerror()
     setRoleerror()
+    setLaberror()
     let usermail = {
       name: name,
       email: email,
@@ -83,6 +85,10 @@ const Adduserteacher = () => {
     else if (!role) {
       console.log("no role")
       setRoleerror("*Role required*")
+    }
+    else if(!lab && user.role=="teacher"){
+      console.log("no lab")
+      setLaberror("*Lab required*")
     }
     else {
       auth.createUserWithEmailAndPassword(email, password)
@@ -283,6 +289,7 @@ const Adduserteacher = () => {
       sx={{ width: 300 }}
       renderInput={(params) => <TextField {...params}  />}
     />
+    <p className='errormsg'>{laberror}</p>
 </>
 : null}
  <br />
