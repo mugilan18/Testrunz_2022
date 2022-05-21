@@ -58,6 +58,7 @@ const AddUserComponentadmin = (props) => {
 
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = useState(null);
+  const [messageerror, setMessageerror] = useState(null);
   const [{ user }, dispatch] = useStateValue();
   const username = user.name
   const useridval = user._id
@@ -186,11 +187,23 @@ const [department,setDepartment]=useState()
         userId: useridval
       };
       console.log("list user", user)
-      ApiService.addUser(user).then((res) => {
-        setMessage("User Added successfully.");
+      ApiService.addUser(user)
+      // .then((res) =>res.json())
+      .then((res)=>{
+        console.log("check again",res.data)
+        if(res.data.errors==="already created"){
+          setMessageerror("Already Created");
         setTimeout(() => {
           props.closeModal();
         }, 1000);
+        }
+        else{
+          setMessage("User Added successfully.");
+          setTimeout(() => {
+            props.closeModal();
+          }, 1000);
+        }
+       
       });
       setOpen(true);
     }
@@ -302,8 +315,9 @@ const [department,setDepartment]=useState()
         </Button>
       </form>
       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success">
+        <Alert onClose={handleClose} severity={message ?"success" :"error"}>
           {message}
+          {messageerror}
         </Alert>
       </Snackbar>
     </div>

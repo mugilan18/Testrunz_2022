@@ -7,7 +7,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
-import Helpguide from './Supporttab/Helpguide';
+import Helpguide1 from './Supporttab/Helpguide1';
 import Releasenotes from './Supporttab/Releasenotes';
 import Feedback from './Supporttab/Feedback';
 
@@ -72,19 +72,20 @@ export default function Settings() {
           backgroundColor:"white"
       },
     }}  >
-          <Tab label="Help Guide"  {...a11yProps(0)} style={{width:"200px",color:"black"}} />
-          <Tab label="Release Notes"  {...a11yProps(1)} style={{width:"200px",color:"black"}}/>
-          <Tab label="Feedback" {...a11yProps(2)} style={{width:"200px",color:"black"}}/>
+         {/* <Tab label="Release Notes"  {...a11yProps(1)} style={{width:"200px",color:"black"}}/> */}
+          <Tab label="Feedback" {...a11yProps(0)} style={{width:"200px",color:"black"}}/>
+           <Tab label="Help Guide"  {...a11yProps(1)} style={{width:"200px",color:"black"}} />
         </Tabs>
       </AppBar>
+      
+      {/* <TabPanel value={value} index={1}>
+     <Releasenotes/>
+      </TabPanel> */}
       <TabPanel value={value} index={0}>
-       <Helpguide/>
+      <Feedback/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-     <Releasenotes/>
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-      <Feedback/>
+       <Helpguide1/>
       </TabPanel>
     </div>
   );

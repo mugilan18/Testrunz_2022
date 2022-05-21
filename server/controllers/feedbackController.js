@@ -21,11 +21,11 @@ const getAll = async function (req, res, next) {
 // };
 
 const postFeedback = function (req, res, next) {
-    console.log("triggered")
+    console.log("triggered",req.body)
   const newFeedback = new Feedback({
     postedby: req.body.postedby,
     feedback: req.body.feedback,
-    rating: req.body.rating,
+    // rating: req.body.rating,
     image:req.body.image,
     type:req.body.type,
   });

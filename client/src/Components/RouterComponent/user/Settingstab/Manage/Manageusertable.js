@@ -78,8 +78,8 @@ const Manageusertable = () => {
   const [open, setOpen] = React.useState(false);
   // const handleOpen = () => setOpen(true);
   const handleClose = () => {
-    setOpen(false);
-    setEditlabtype(true)
+  setOpen(false);
+  setEditlabtype(true)
   setEditrole(true)
   setEditcollegename(true)
   setEditcountry(true)
@@ -95,12 +95,14 @@ const Manageusertable = () => {
 
 
   useEffect(() => {
-
+console.log(user)
     fetch(`${ApiUrl}/api/getaccess`, {
       method: "POST",
    
       body: JSON.stringify({
-      role:user.role
+      role:user.role,
+      department:user.department,
+      collegeName:user.collegeName
     }),
     headers: {
       "Content-type": "application/json; charset=UTF-8"
@@ -495,12 +497,14 @@ const patchsingle=(tag,value,id)=>{
   direction="row"
   justifyContent="flex-start"
   alignItems="center"
->
+> 
 <Grid item>
   <Autocomplete
       size="small"
       onChange={(event, newValue) => {
-        setNewlab(newValue)
+       
+          setNewlab(newValue)
+        
       }}
       options={(lablist).map((option) => option)}
       sx={{ width: 300 }}
@@ -509,10 +513,13 @@ const patchsingle=(tag,value,id)=>{
     </Grid>
     <Grid item>
     <Button onClick={()=>{
+
       let temp = [...lab,newlab]
-      var sendlab = temp.filter(function (e) {return e != null;});
+      var uniqueemail = [...new Set(temp)];
+      var sendlab = uniqueemail.filter(function (e) {return e != null;});
       patchsingle("labtype",sendlab,detail._id);
       setEditlabtype(!editlabtype)
+
     }
       }>update</Button>
       </Grid>

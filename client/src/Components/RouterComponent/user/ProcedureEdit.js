@@ -261,16 +261,14 @@ const App = (props) => {
     };
     return (
       <div>
-        <p
-       
-         
-          className="pointer"
+        <Button
           onClick={onClick}
+          variant="contained"
           style={{
             position: "absolute",
-            top:"4.55rem",
+            top:"5.2rem",
             right:"8rem",
-           
+            background:"#F1C232",
             zIndex: 1000,
             color: "#222F3E",
            
@@ -278,7 +276,7 @@ const App = (props) => {
           }}
         >
           {showResults ? "Hide" : "Show"}
-        </p>
+        </Button>
         {showResults ? <Results  onclick={onClick}/> : null}
       </div>
     );
@@ -466,8 +464,8 @@ setOpen(true);
           initialValue={initialcontent}
           apiKey="au50u78j9vjabzcr4icg4v3oknubu08ifv9rfstawlzmdobp"
           init={{
-            height: "90vh",
-            width:"196.9vh",
+            height: "85vh",
+            width:"100%",
             menubar: true,
             selector: "textarea",
             external_plugins: {

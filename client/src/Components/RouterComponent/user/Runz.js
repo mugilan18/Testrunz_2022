@@ -124,9 +124,11 @@ const Runz = () => {
     // { title: "Template Id", field: "TemplateId" },
     // { title: "Experiment Name", field: "ExperimentName" },
      { title: "Lab Name", field: "labname" , width:"15%"},
-    { title: "Procedure ID    ", field: "ProcedureId" ,width:"18%",sorting:false },
+    // { title: "Procedure ID    ", field: "ProcedureId" ,width:"18%",sorting:false },
     { title: "Description", field: "description",width:"18%" },
+    { title: "Assigned By", field: "assignedBy",emptyValue:()=><em>{user.email}</em> },
     { title: "Created Time", field: "time" },
+    { title: "Status", field: "status" },
   ];
 
   const [page, setPage] = React.useState(0);
@@ -279,6 +281,8 @@ individuals.map((userr, ident) => {
         ProcedureId: userr._id,
         description:userr.procedureDescription,
         time:new Date(userr.time).toDateString(),
+        status:userr.status,
+        assignedBy:userr.assignedBy
 
       });
 
@@ -345,9 +349,9 @@ individuals.map((userr, ident) => {
         {loadingscreen ?<Loading />:
         <MaterialTable
           columns={columns1}
-          data={rows.reverse()}
+          data={rows}
           title="Runz"
-          onRowClick= {(e,data) => playUser(data.ProcedureId)}
+          onRowClick= {(e,data) => {playUser(data.ProcedureId)}}
      
           options={{
             actionsColumnIndex: -1, grouping:true,  pageSizeOptions:[5,10,15],pageSize:10,headerStyle: {

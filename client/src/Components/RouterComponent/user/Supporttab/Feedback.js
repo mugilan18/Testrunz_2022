@@ -26,7 +26,7 @@ const Input = styled('input')({
 
 const Feedback = () => {
   const[feedback,setFeedback]=useState("")
-  const[rating,setRating]=useState(0)
+  // const[rating,setRating]=useState(0)
   const [baseImage, setBaseImage] = useState("");
 const [type,setType]=useState("");
 
@@ -55,14 +55,23 @@ const [type,setType]=useState("");
 
   const sendfeedback =(e)=>{
     e.preventDefault();
+    if(!type){
+      alert("enter the type")
+          }
+    else if(!feedback){
+alert("enter some content")
+    }
+    else{
     axios.post(`${ApiUrl}/feedback`, {
       postedby:user.email,
-        rating:rating,
+        type:type,
         feedback:feedback,
         image:baseImage,
     }).then((res)=>{
-      // console.log("feedback sent")
+      console.log("feedback sent")
       setBaseImage("")
+      setFeedback("")
+      setType("")
       Swal.fire(
         'success',
         'your feedback has been Submitted',
@@ -77,9 +86,9 @@ const [type,setType]=useState("");
     // console.log(user)
 
     setFeedback("")
-    setRating(0)
+    // setRating(0)
     setType("")
-  }
+  }}
   return (
     <Card>
     <CardContent style={{backgroundColor:"#E7EBF0"}}>
@@ -112,16 +121,16 @@ const [type,setType]=useState("");
       onChange={(e)=>setFeedback(e.target.value)}
     />
     <br/>  <br/>  
-    <Grid container spacing={2}>
-  <Grid item>
+   {/* <Grid container spacing={2}>
+   <Grid item>
   <p><span style={{fontWeight:"bold"}}>Rate Us : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span ></p>
 
-  </Grid>
+  </Grid> 
   <Grid item >
   <Rating name="half-rating" value={rating} onChange={(e)=>setRating(e.target.value)} precision={0.5} />
 
   </Grid>
-  </Grid>
+  </Grid>*/}
   <img src={baseImage} height="200px" />
   <br/>
   <br/>

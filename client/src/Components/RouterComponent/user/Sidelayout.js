@@ -109,28 +109,28 @@ const Sidelayout = ({children}) => {
     const history = useHistory()
     const location = useLocation()
 
-    const menuItem2 =[
-        {
-            text:"Settings",
-            icon:<SettingsIcon/>,
-            path:"/settings"
-        },
-        {
-            text:"Support",
-            icon:<HelpIcon/>,
-            path:"/support"
-        },
-        {
-            text:"Profile",
-            icon:<ManageAccountsIcon/>,
-            path:"/profile"
-        },
-        // {
-        //     text:"Developer",
-        //     icon:<RiAdminFill/>,
-        //     path:"/adminfeedback"
-        // },
-    ]
+    // const menuItem2 =[
+    //     {
+    //         text:"Settings",
+    //         icon:<SettingsIcon/>,
+    //         path:"/settings"
+    //     },
+    //     {
+    //         text:"Support",
+    //         icon:<HelpIcon/>,
+    //         path:"/support"
+    //     },
+    //     {
+    //         text:"Profile",
+    //         icon:<ManageAccountsIcon/>,
+    //         path:"/profile"
+    //     },
+    //     // {
+    //     //     text:"Developer",
+    //     //     icon:<RiAdminFill/>,
+    //     //     path:"/adminfeedback"
+    //     // },
+    // ]
 
 
   return (
@@ -200,7 +200,7 @@ const Sidelayout = ({children}) => {
 {/* } */}
 
 
-
+{user.role==="student"?  null: 
         <ListItem 
          button 
         key="Inventory"
@@ -209,6 +209,8 @@ const Sidelayout = ({children}) => {
             <ListItemIcon><InventoryIcon/></ListItemIcon>
             <ListItemText primary="Inventory"/>
         </ListItem>
+               
+ } 
 
         <ListItem 
          button 
@@ -224,7 +226,7 @@ const Sidelayout = ({children}) => {
     <br/>
   <Divider/>
   <br/>   <br/>  
-     {menuItem2.map(item=>(
+     {/* {menuItem2.map(item=>(
         <ListItem 
          button 
         key={item.text}
@@ -237,7 +239,43 @@ const Sidelayout = ({children}) => {
             <ListItemText primary={item.text}/>
         </ListItem>
        
-    ))}
+    ))} */}
+    
+{/* {(user.role==="admin"||user.role==="superadmin")? */}
+
+    {user.role==="student"?  null: 
+<ListItem 
+         button 
+        key="Settings"
+        onClick={()=>history.push("/settings")}
+        className={location.pathname== "/settings" ? classes.active : null} >
+            <ListItemIcon><SettingsIcon/></ListItemIcon>
+            <ListItemText primary="Settings"/>
+        </ListItem>
+     
+ } 
+
+
+
+        <ListItem 
+         button 
+        key="Support"
+        onClick={()=>history.push("/support")}
+        className={location.pathname== "/support" ? classes.active : null} >
+            <ListItemIcon><HelpIcon/></ListItemIcon>
+            <ListItemText primary="Support"/>
+        </ListItem>
+               
+ 
+
+        <ListItem 
+         button 
+        key="Profile"
+        onClick={()=>history.push("/profile")}
+        className={location.pathname== "/profile" ? classes.active : null} >
+            <ListItemIcon><ManageAccountsIcon/></ListItemIcon>
+            <ListItemText primary="Profile"/>
+        </ListItem>
 
    
 </List>

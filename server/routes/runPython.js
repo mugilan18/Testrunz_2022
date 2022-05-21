@@ -169,25 +169,31 @@ router.get("/", function (req, res) {
   // console.log(typeof values);
   var size = Object.keys(values).length;
   console.log("typeof", values);
-  if (size === 2){
-    const passvalue = values[Object.keys(values)[0]]
-    const scriptProcess = runScript(passvalue);
-    res.set("Content-Type", "application/json");
-    scriptProcess.stdout.pipe(res);
-    scriptProcess.stderr.pipe(res);
-  }
-  else{
+  // if (size === 2){
+  //   const passvalue = values[Object.keys(values)[0]]
+  //   let title = values[Object.keys(values)[1]]
+  //   console.log(`tittttttttttttle ${title}`)
+  //   const scriptProcess = runScript(passvalue);
+  //   res.set("Content-Type", "application/json");
+  //   scriptProcess.stdout.pipe(res);
+  //   scriptProcess.stderr.pipe(res);
+  // }
+  // else{
     const passvalue = [];
     Object.values(values).map((ele) => {
       passvalue.push(ele);
     });
-    //console.log(passvalue.join(" "));
-  
-    const scriptProcess = runScript(`working ${passvalue.join(" ")}`);
+    console.log("mjsdjsj",passvalue);
+    let title = passvalue[passvalue.length-1]
+    console.log(`tittttttttttttle`,title)
+    const scriptProcess = runScript(`working ${passvalue.join(" ")}`,title);
     res.set("Content-Type", "application/json");
     scriptProcess.stdout.pipe(res);
     scriptProcess.stderr.pipe(res);
-  }
+    scriptProcess.stdout.on("data",(code)=>{
+      console.log(`sdnjsa sjdjksab ${code}`)
+    })
+  // }
  
 });
 
@@ -195,11 +201,11 @@ router.get("/", function (req, res) {
  * @param param {String}
  * @return {ChildProcess}
  */
-function runScript(param) {
+function runScript(param,title) {
   /*
   python -u script.py --foo bar
   */
-  return spawn("python3", ["-u", SCRIPT_PATH, "--foo", param]);
+  return spawn("python3", ["-u", SCRIPT_PATH, "--foo", param,title]);
 }
 
 module.exports = router;

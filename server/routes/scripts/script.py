@@ -30,7 +30,7 @@ from FirstYearGeotechnical import FirstYGtech
 from Electronic2 import E2
 from Electronic1 import EL1
 from ElectricElectronic import EE
-def main(argv):
+def main(argv,title):
     argument = ''
     usage = 'usage: script.py -f <sometext>'
     try:
@@ -592,11 +592,11 @@ def main(argv):
                 elif((argument[len(argument) -3] == "EMF")and (argument[len(argument) -2] == "and") and (argument[len(argument) -1] =="MMF" )):
                     EE(argument).emf()
                 else:
-                    Dummy(argument).dummy()
+                    Dummy(title).dummy()
             except ValueError:
                 print(json.dumps({"error":"value added error"}))
             
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    main(sys.argv[1:],sys.argv[2:])

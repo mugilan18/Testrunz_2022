@@ -3,7 +3,9 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 //import Layout from "./Layout";
+import TextField from "@mui/material/TextField";
 
+import Autocomplete from '@mui/material/Autocomplete';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import Select from '@material-ui/core/Select';
@@ -12,6 +14,7 @@ import Card from '@material-ui/core/Card';
 import { actionTypes } from "../data/reducer"
 import CardContent from '@material-ui/core/CardContent';
 import { useStateValue } from '../data/StateProvider';
+import ApiUrl from "../ServerApi";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -32,13 +35,16 @@ const Private = (props) => {
   const [role, setRole] = useState("")
   const [collegeName, setCollegeName] = useState("")
   const [department, setDepartment] = useState("")
+  const [collegeNametemp, setCollegeNametemp] = useState("")
+  const [departmenttemp, setDepartmenttemp] = useState("")
   const [country, setCountry] = useState("")
   const [state, setState] = useState("")
   const [year, setYear] = useState("")
   const [semester, setSemester] = useState("")
   const [showOnce, setShowOnce] = useState(false)
   const [btnText, setBtnText] = useState("submit")
-  
+  const [options1,setOptions1]=useState()
+  const [options2,setOptions2]=useState()
   const [goTo, setGoTo] = useState(false);
 
   const [{ user }, dispatch] = useStateValue();
@@ -50,10 +56,11 @@ const Private = (props) => {
    set_id(user._id)
 console.log("private",user)
   if(user.department){
-    setDepartment(user.department)
+    setDepartmenttemp(user.department)
   }
   if(user.collegeName){
-    setCollegeName(user.collegeName)
+    setCollegeNametemp(user.collegeName)
+    fetchdepartment(user.collegeName)
   }
   if(user.role){
     setRole(user.role)
@@ -61,6 +68,14 @@ console.log("private",user)
    if(user.showOnce===true){
     props.history.push("/app");
    }
+   fetch(`${ApiUrl}/moreInfo/all/college`)
+   .then(response => response.json())
+   .then(data => {
+     console.log(data)
+     setOptions1(data.ids)
+
+
+   });
   },[])
   
 
@@ -77,7 +92,30 @@ console.log("private",user)
 
 //    };
 
- 
+const fetchdepartment = (aa) => {
+
+  setCollegeName(aa)
+  setDepartment()
+
+  fetch(`${ApiUrl}/moreInfo/department`, {
+    method: "POST",
+
+    body: JSON.stringify({
+      college: aa
+    }),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8"
+    }
+  })
+    .then(response => response.json())
+    .then(json => {
+
+      setOptions2(json.ids)
+
+      console.log(json)
+    }
+    );
+}
 
  
 
@@ -91,17 +129,19 @@ console.log("private",user)
     setYearerror()
     setSemestererror()
  
-
-  if (collegeName === ""||null ) {
-    console.log("no email")
+setCollegeName(collegeName||collegeNametemp)
+setDepartment(department||departmenttemp)
+console.log("check here",department)
+  if (!collegeName) {
+    console.log("no college name")
     setCollegenameerror("*College Name required*")
   } 
-  else if (department === ""||null ) {
-    console.log("no password")
+  else if (!department) {
+    console.log("no department name")
     setDepartmenterror("*Department required*")
   }
-  else if (country === ""||null ) {
-    console.log("no email")
+  else if (!country) {
+    console.log("no country name")
     setCountryerror("*Country required*")
   } 
   else if (state === ""||null ) {
@@ -109,14 +149,14 @@ console.log("private",user)
     setStateerror("*State required*")
   }
   else if ((role === "student") && (year === ""||null) ) {
-    console.log("no email")
+    console.log("no year")
     setYearerror("*Year required  enter a valid number*")
   } 
   else if((role === "student") &&  parseInt(year)> 4 ||parseInt(year)<1){
     setYearerror("Year must be from 1 to 4")
   }
   else if ( (role === "student") && (semester === ""||null)) {
-    console.log("no password")
+    console.log("no semester")
     setSemestererror("*Semester required enter a valid number*")
   }
   else if((role === "student") &&  parseInt(semester) >8 ||parseInt(semester)<1){
@@ -156,7 +196,7 @@ console.log("private",user)
 .then((response) => {
 ;
 
-
+ 
         fetch(`${process.env.REACT_APP_API}/users/${user._id}`)
         .then(res => res.json())
         .then(json => {
@@ -193,29 +233,60 @@ return (
         {(showOnce === false) && (<> <p className="lead text-center">Profile Update</p>
           <form>
            
-          {   !collegeName &&   <>      
-            <div className="form-group">
+          {   !collegeNametemp ?   <>      
+           {options1&& <div className="form-group">
               <label className="text-muted">College Name</label>
-              <input
-                onChange={e => setCollegeName(e.target.value)}
-                type="text"
-                className="form-control"
-                value={collegeName}
-              />
+              <br/> <br/>
+              <Autocomplete
+              style={{width:"100%"}}
+            id="outlined-basic"
+            variant="outlined"
+            size="small"
+            value={collegeName}
+            onChange={(event, newValue) => {
+              fetchdepartment(newValue);
+              setDepartment()
+            }}
+            options={options1.map((option) => option)}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} />}
+          />
             </div>
+          }
             <p className='errormsg'>{collegenameerror}</p>
-            </>}
+            </>
+            :
+            <>
+            <label className="text-muted">College Name : {collegeNametemp}</label>
+            <br/>
+          
+            </>
+            }
             
-    {   !department &&   <>  <div className="form-group">
+    {   !departmenttemp ?   <>  
+   {options2 && <div className="form-group">
               <label className="text-muted">Department</label>
-              <input
-                onChange={e => setDepartment(e.target.value)}
-                type="text"
-                className="form-control"
-                value={department}
-              />
-            </div>
+              <br/> <br/>
+              <Autocomplete
+              style={{width:"100%"}}
+            value={department}
+            size="small"
+            onChange={(event, newValue) => {
+             setDepartment(newValue)
+              
+            }}
+            options={options2.map((option) => option)}
+            id="controllable-states-demo"
+            // options={options}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+            </div>}
             <p className='errormsg'>{departmenterror}</p>
+            </>:
+            <>
+            <label className="text-muted">Department :{departmenttemp}</label>
+          
             </>
 
 }

@@ -97,7 +97,7 @@ const InnerNav = () => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={profile}>Profile Page</MenuItem>
+        <MenuItem onClick={profile}>Profile</MenuItem>
         <MenuItem onClick={logout}>Logout</MenuItem>
       </Menu>
 

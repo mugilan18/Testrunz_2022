@@ -96,16 +96,16 @@ const [cookies, setCookie, removeCookie] = useCookies(["userjwt"]);
       },
     }}  >
           <Tab label="Profile"  {...a11yProps(0)} style={{width:"200px",color:"black"}} />
-          <Tab label="Activity"  {...a11yProps(1)} style={{width:"200px",color:"black"}}/>
+          {/* <Tab label="Activity"  {...a11yProps(1)} style={{width:"200px",color:"black"}}/> */}
 
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
         <Userprofile/>
       </TabPanel>
-      <TabPanel value={value} index={1}>
+      {/* <TabPanel value={value} index={1}>
       <Activity />
-      </TabPanel>
+      </TabPanel> */}
   
     </div>
   );

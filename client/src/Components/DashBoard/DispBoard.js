@@ -5,6 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
+import AppBar from '@material-ui/core/AppBar';
 
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -31,13 +32,13 @@ function TabPanel(props) {
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`vertical-tabpanel-${index}`}
-      aria-labelledby={`vertical-tab-${index}`}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
       {value === index && (
         <Box p={3}>
-          <div>{children}</div>
+          <Typography>{children}</Typography>
         </Box>
       )}
     </div>
@@ -61,33 +62,12 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
-    display: "flex",
-    height: "80vh",
-    marginLeft: "-50px",
-  
+    width:"100%"
   },
-  tabs: {
-    borderRight: `1px solid ${theme.palette.divider}`,
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  title: {
-    fontSize: 14,
-  },
-  card: {
-    height: "8%",
-    width: "40%",
-    position: "absolute",
-    top: "5%",
-    left: "45%",
-  },
+  card:{
+    // paddingTop:"100px"
+  }
 }));
-
 /* const GreenRadio = withStyles({
   root: {
     color: green[400],
@@ -170,18 +150,19 @@ export default function VerticalTabs({ data }) {
       <Divider />
       <div className={classes.root}>
       {/* <Record data={data} /> */}
-        <Tabs
-          orientation="vertical"
-          variant="scrollable"
-          value={value}
-          onChange={handleChange}
-          aria-label="Vertical tabs example"
-          className={classes.tabs}
-        >
+      <AppBar position="static" style={{width:"100%"}}>
+        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example" style={{background: '#F1C232'}} 
+        TabIndicatorProps={{  
+      style: {
+          // display: "none",
+          backgroundColor:"white"
+      },
+    }}  >
           <Tab label="Observation" {...a11yProps(0)} />
           <Tab label="Record" {...a11yProps(1)} />
           <Tab label="Notes" {...a11yProps(3)} />
-        </Tabs>
+          </Tabs>
+      </AppBar>
         <TabPanel value={value} index={0}>
           <Observation data={data} />
         </TabPanel>

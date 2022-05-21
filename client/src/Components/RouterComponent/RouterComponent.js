@@ -34,6 +34,8 @@ import Support from "./user/Support";
 import { useStateValue } from "../../data/StateProvider";
 import { actionTypes } from "../../data/reducer";
 import Inventory from "./user/Inventory/Inventory";
+import Lablist from "./user/Lablist";
+import Assignedlist from "./user/Assignedlist";
 const RouterComponent = (props) => {
   const [{ user }, dispatch] = useStateValue();
  
@@ -74,6 +76,8 @@ const RouterComponent = (props) => {
             <PrivateRoute path="/add-user" exact component={AddUserComponent} auth={props.user}/>
             <PrivateRoute path="/adduser" exact component={Adduser} auth={props.user}/>
             <PrivateRoute path="/inventory" exact component={Inventory} auth={props.user}/>
+            <PrivateRoute path="/app/:id" exact component={Lablist} auth={props.user}/>
+            <PrivateRoute path="/app/:id/:exp" exact component={Assignedlist} auth={props.user}/>
 
             {/* <PrivateRoute
               path="/edit-user"

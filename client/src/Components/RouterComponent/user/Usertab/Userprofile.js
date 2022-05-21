@@ -511,7 +511,8 @@ const Userprofile = () => {
         <div>
           <form>
 
-
+{user.role == "superadmin" ?
+<>
             <div className="form-group">
               <label className="text-muted">College Name</label>
               <input
@@ -530,6 +531,9 @@ const Userprofile = () => {
                 value={department}
               />
             </div>
+            </>
+            : null
+}
             <div className="form-group">
               <label className="text-muted">Country</label>
               <input

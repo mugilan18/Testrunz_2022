@@ -29,8 +29,11 @@ const getProcedureById = async function (req, res, next) {
 const searchTitle = async function (req, res, next) {
   try {
     const content = await Content.findOne({ title: req.params.title });
-    const { html } = content;
-    res.json({ html });
+    if(content){
+      const { html } = content;
+      res.json({ html });
+    }
+   
   } catch (err) {
     console.error(err);
   }

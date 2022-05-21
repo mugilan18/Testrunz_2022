@@ -62,7 +62,8 @@ import Grid from "@material-ui/core/Grid";
 import ApiUrl from "../../../ServerApi";
 
 import Lodaing from "../../RouterComponent/user/Lodaing";
-
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 import React, { useEffect } from "react";
@@ -90,6 +91,7 @@ import Snackbar from '@mui/material/Snackbar';
 import jsPDF from "jspdf"
 import { SiMicrosoftword } from 'react-icons/si';
 import ApiService from "../../../Sevices/ApiService";
+import Graph from "../../Graph/Graph";
 const useStyles = makeStyles({
   root: {
     width: "1000px",
@@ -100,7 +102,7 @@ const useStyles = makeStyles({
 const Observation = ({ data ,datavalues }) => {
 
   const classes = useStyles();
-  const [htmlContext, setHtmlContext] = React.useState(null);
+  const [htmlContext, setHtmlContext] = React.useState();
   const [statusmessagee, setStatusmessagee] = React.useState("")
   const [statusmessages, setStatusmessages] = React.useState("")
   const [opene, setOpene] = React.useState(false);
@@ -110,6 +112,7 @@ const Observation = ({ data ,datavalues }) => {
   const [accord, setAccord] = React.useState(false);
   const [output,setOutput]=React.useState({})
   const [data1, setData1] = React.useState({});
+  const [getgraph, setGetgraph] = React.useState(false);
   const vertical ="button"
   const horizontal = "center"
   let {token} = useParams();
@@ -120,9 +123,10 @@ const Observation = ({ data ,datavalues }) => {
     axios
       .get(`${ApiUrl}/procedures/search/${data.experimentName}`)
       .then((res) => {
-        setHtmlContext((prev) => {
-          if (prev === null) return res.data;
-        });
+        // setHtmlContext((prev) => {
+        //   if (prev === null) return res.data;
+        // });
+        setHtmlContext(res.data);
         fetch(`${ApiUrl}/experiments/${token}`)
         .then((res)=>res.json())
         .then(data =>{
@@ -165,6 +169,9 @@ const Observation = ({ data ,datavalues }) => {
              setOpens(true);
               setStatusmessages('Calculation Completed')
               setAccord(true)
+
+
+              
             })
             .catch((error) => {
               ////////////////////
@@ -206,18 +213,27 @@ const Observation = ({ data ,datavalues }) => {
 
 // initial the input 
   function init() {
+    let objects={}
     // setInputEl(document.querySelectorAll("input"))
-    let inputEl = document.querySelectorAll("input");
+    let inputEl = document.getElementById('content').querySelectorAll("input");
      console.log(inputEl)
     //  console.log(inputElArr)
      inputEl.forEach((ele) => {
       const { name, value } = ele;
+      let temp ={[name]:value}
+      //////////////////////
+      objects = {...objects,temp};
+     
+      ////////////////////////
       setData1((prev) => ({ ...prev, [name]: value ?? "1" }));
       ele.onChange = (e) => {
         const { name, value } = e.target;
         setData1((prev) => ({ ...prev, [name]: value }));
       };
     });
+    console.log("data1",data1)
+    console.log("objects",objects)
+
   }
 
 // retrive
@@ -229,7 +245,7 @@ const Observation = ({ data ,datavalues }) => {
       // console.log("check here",data)
       const filtered = Object.entries(data.datas).filter(([key, value]) => key != '');
       const obj = Object.fromEntries(filtered)
-
+      
       for (const [key, values] of Object.entries(obj)) {
 
         document.getElementById(key).value=values
@@ -270,7 +286,22 @@ const  Export2Doc=(element, filename = '')=>{
 }
     
 useEffect(() => {
-  init()
+  // init()
+  // var table = document.getElementsByTagName("table")[0];
+ 
+  // console.log(table)
+        // for (var i = 0 ; i < table.rows.length; i++) {
+ 
+        //     var row = "";
+ 
+        //     for (var j = 0; j < table.rows[i].cells.length; j++) {
+ 
+        //         row += table.rows[i].cells[j].innerHTML;
+        //         row += " | ";
+        //     }
+ 
+        //     alert(row);
+        // }
   
 }, []);
 
@@ -400,7 +431,22 @@ const updateval = (event) => {
 
 
 
+const check=()=>{
+  // var tables = document.getElementsByTagName("table")[1];
+  var table = document.getElementsByTagName("table")[1].rows[0];
+ 
+     
+        var row = "";
 
+        for (var j = 0; j < table.cells.length; j++) {
+          console.log(table.cells[j].innerHTML);
+            row += table.cells[j].innerHTML;
+            row += " | ";
+        }
+
+        console.log(row);
+        console.log(table);
+}
 
 
 
@@ -454,7 +500,7 @@ const updateval = (event) => {
       return;
     }
     setOpens(false);
-  
+   
   };
   const accordchange=()=>{
     setAccord(!accord)
@@ -473,6 +519,7 @@ const updateval = (event) => {
            {/* <div id="generator" style={{width:"600px", padding:"50px"}}> */}
            <div id="generator" >
           <div className="containeer">
+            <div id="content">
             <form onChange={init}>
                 {
                 uses.map((el) =>
@@ -480,6 +527,7 @@ const updateval = (event) => {
                 )} 
                
             </form>
+            </div>
             <Button variant="contained"
                 style={{ position: "relative", left: "40%", top: "2%", backgroundColor:"#F1C232",color:"black"}}
                 onClick={Calculate}
@@ -487,6 +535,23 @@ const updateval = (event) => {
                 Calculate Result &nbsp;&nbsp;&nbsp;
                 <BsFillCalculatorFill/>
                 </Button>
+                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                <Button variant="contained"
+                style={{ position: "relative", left: "40%", top: "2%", backgroundColor:"#F1C232",color:"black"}}
+                onClick={()=>setGetgraph(!getgraph)}
+              >
+                Get Graph &nbsp;&nbsp;&nbsp;
+                <BsFillCalculatorFill/>
+                </Button>
+                <Button onClick={check}>
+                  check
+                </Button>
+          </div>
+          <div>
+            {getgraph &&
+            <Graph/>
+
+            }
           </div>
           <br /><br />
           <Accordion  expanded={accord}>
@@ -539,7 +604,16 @@ const updateval = (event) => {
         </Alert>
       </Snackbar>
         </div> 
-        :<Lodaing/>}
+        :
+        <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={true}
+        // onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+        }
+         {/* :<Lodaing style={{width:"100%",height:"100%"}}/>} */}
           </div>
         </Grid>
 

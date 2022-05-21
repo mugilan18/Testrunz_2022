@@ -65,8 +65,8 @@ const Adduserteacher = () => {
     console.log(role)
     console.log("this is password", password)
     e.preventDefault();
-    setNameerror()
-    setEmailerror()
+    // setNameerror()
+    // setEmailerror()
     setRoleerror()
     setLaberror()
     let usermail = {
@@ -77,6 +77,12 @@ const Adduserteacher = () => {
     if (!name) {
       console.log("no name")
       setNameerror("*Name required*")
+    }
+    else if(nameerror){
+      console.log(nameerror)
+    }
+    else if(emailerror){
+      console.log(emailerror)
     }
     else if (!email) {
       console.log("no email")
@@ -142,9 +148,10 @@ const Adduserteacher = () => {
                   }
                 })
               //////////////
-              setEmail("")
-              setName("")
-              setRole("")
+              setEmail()
+              setName()
+              setRole()
+              setLab()
             })
             .catch((error) => {
               console.error('Error:', error);
@@ -180,13 +187,20 @@ const Adduserteacher = () => {
       <div>
         <label>Name : </label>
         <TextField
-          onChange={e => setName(e.target.value)}
-          id="outlined-size-small"
-          size="small"
-          value={name}
-        />
-        <br />
+        id="outlined-size-small"
+        size="small"
+        value={name}
+        onChange={(e) => {setName(e.target.value)
+          if(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~1234567890]/.test(e.target.value)){
+            setNameerror("*No Special Character Allowed*")
+          }
+          else {
+            setNameerror()
+          }
+        } }
+      />
         <p className='errormsg'>{nameerror}</p>
+  
       </div>
       <br />
 

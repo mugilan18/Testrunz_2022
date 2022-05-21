@@ -78,17 +78,17 @@ export default function Settings() {
           backgroundColor:"white"
       },
     }}  >
-          <Tab label="Manage App"  {...a11yProps(0)} style={{width:"200px",color:"black"}} />
+          {/* <Tab label="Manage App"  {...a11yProps(0)} style={{width:"200px",color:"black"}} />
           <Tab label="Custom Field" {...a11yProps(1)} style={{width:"200px",color:"black"}}/>
-          <Tab label="Custom Column" {...a11yProps(2)} style={{width:"200px",color:"black"}}/>
+          <Tab label="Custom Column" {...a11yProps(2)} style={{width:"200px",color:"black"}}/> */}
           {/* <Tab label="Add User" {...a11yProps(3)} style={{width:"200px",color:"black"}}/> */}
-          {user.role !="student"? <Tab label="Manage User" {...a11yProps(3)} style={{width:"200px",color:"black"}}/>: null}
-          {user.role ==="superadmin"? <Tab label="Access Control"  {...a11yProps(4)} style={{width:"200px",color:"black"}}/> : null}
+          {user.role !="student"? <Tab label="Manage User" {...a11yProps(0)} style={{width:"200px",color:"black"}}/>: null}
+          {/* {user.role ==="superadmin"? <Tab label="Access Control"  {...a11yProps(4)} style={{width:"200px",color:"black"}}/> : null} */}
 
 {/* {console.log(User.role)} */}
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      {/* <TabPanel value={value} index={0}>
        <Manageapp/>
       </TabPanel>
       <TabPanel value={value} index={1}>
@@ -96,17 +96,17 @@ export default function Settings() {
       </TabPanel>
       <TabPanel value={value} index={2}>
       <Customcolumn/>
-      </TabPanel>
+      </TabPanel> */}
       {/* <TabPanel value={value} index={3}>
       <Adduser/>
       </TabPanel> */}
-      <TabPanel value={value} index={3}>
+      <TabPanel value={value} index={0}>
       <Manageuserpanel/>
       </TabPanel>
-      {user.role ==="superadmin"?
+      {/* {user.role ==="superadmin"?
       <TabPanel value={value} index={4}>
       <Accesscontrol/>
-      </TabPanel>:null}
+      </TabPanel>:null} */}
     </div>
   );
 }

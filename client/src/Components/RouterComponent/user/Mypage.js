@@ -32,6 +32,7 @@ import {RiShareForwardFill} from 'react-icons/ri';
 import Loading from "./Lodaing"
 import { Button } from "@material-ui/core";
 import { useHistory,Redirect } from "react-router-dom";
+import Paper from '@mui/material/Paper';
 
 
 function Alert(props) {
@@ -108,12 +109,13 @@ const Mypage = () => {
   const [message, setMessage] = useState(null);
   const columns1 = [
     { title: "ID", field: "id" },
-    { title: "Procedure Name", field: "ProcedureName" , width:"25%"},
+    { title: "Procedure Name", field: "ProcedureName" },
     // { title: "Template Id", field: "TemplateId" },
     // { title: "Experiment Name", field: "ExperimentName" },
-     { title: "Lab Name", field: "labname", width:"15%"},
-     { title: "Procedure ID    ", field: "ProcedureId",width:"18%" ,sorting:false },
-    { title: "Submitted By", field: "studentName",width:"18%" },
+     { title: "Lab Name", field: "labname"},
+    //  { title: "Procedure ID    ", field: "ProcedureId",width:"18%" ,sorting:false },
+    { title: "Status", field: "status" },
+    { title: "Submitted By", field: "studentName" },
     { title: "Submitted Time", field: "sharedDates" },
   ];
 
@@ -191,6 +193,7 @@ const Mypage = () => {
         studentName:userr.studentName,
         ProcedureId: userr._id,
         sharedDates:new Date(userr.sharedDate).toDateString(),
+        status:userr.status
 
       });
 
@@ -199,7 +202,7 @@ const Mypage = () => {
   return (
     <div className={classes.root}>
 
-      <div style={{ maxWidth: '100%', }}>
+      <div >
         {loadingscreen ?<Loading/>:
         <MaterialTable
           columns={columns1}
@@ -208,8 +211,8 @@ const Mypage = () => {
           onRowClick= {(e,data) => playUser(data.ProcedureId)}
           options={{
             actionsColumnIndex: -1, grouping:true,  pageSizeOptions:[5,10,15],pageSize:10,headerStyle: {
-              zIndex:0,tableLayout:"fixed"
-            }     
+              zIndex:0
+            },tableLayout: "auto"     
           }}
           localization={{
             pagination:{labelRowsSelect:"Runz"}
@@ -226,6 +229,8 @@ const Mypage = () => {
         />
         }
       </div>
+      {/* <Paper elevation={1} >hello</Paper> */}
+
       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success">
         {message}

@@ -62,7 +62,8 @@ import Grid from "@material-ui/core/Grid";
 import ApiUrl from "../../../ServerApi";
 
 import Lodaing from "../../RouterComponent/user/Lodaing";
-
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 import React, { useEffect } from "react";
@@ -100,7 +101,7 @@ const useStyles = makeStyles({
 const Record = ({ data ,datavalues }) => {
 
   const classes = useStyles();
-  const [htmlContext, setHtmlContext] = React.useState(null);
+  const [htmlContext, setHtmlContext] = React.useState();
   const [statusmessagee, setStatusmessagee] = React.useState("")
   const [statusmessages, setStatusmessages] = React.useState("")
   const [opene, setOpene] = React.useState(false);
@@ -120,9 +121,10 @@ const Record = ({ data ,datavalues }) => {
     axios
       .get(`${ApiUrl}/procedures/search/${data.experimentName}`)
       .then((res) => {
-        setHtmlContext((prev) => {
-          if (prev === null) return res.data;
-        });
+        // setHtmlContext((prev) => {
+        //   if (prev === null) return res.data;
+        // });
+        setHtmlContext(res.data);
         fetch(`${ApiUrl}/experiments/${token}`)
         .then((res)=>res.json())
         .then(data =>{
@@ -167,9 +169,17 @@ const Record = ({ data ,datavalues }) => {
               setAccord(true)
             })
             .catch((error) => {
-              setOpene(true);
-              setErrorvalue("Check the values you have Entered")
-              setStatusmessagee("Check the values you have Entered")
+              ////////////////////
+              function call(){
+                setOpene(true)
+                setErrorvalue("Check the values you have Entered")
+                setStatusmessagee("Check the values you have Entered")
+              }
+              setTimeout(
+                call()
+              , 1000);
+            
+              /////////////
             });
     
     
@@ -198,18 +208,27 @@ const Record = ({ data ,datavalues }) => {
 
 // initial the input 
   function init() {
+    let objects={}
     // setInputEl(document.querySelectorAll("input"))
     let inputEl = document.querySelectorAll("input");
      console.log(inputEl)
     //  console.log(inputElArr)
      inputEl.forEach((ele) => {
       const { name, value } = ele;
+      let temp ={[name]:value}
+      //////////////////////
+      objects = {...objects,temp};
+     
+      ////////////////////////
       setData1((prev) => ({ ...prev, [name]: value ?? "1" }));
       ele.onChange = (e) => {
         const { name, value } = e.target;
         setData1((prev) => ({ ...prev, [name]: value }));
       };
     });
+    console.log("data1",data1)
+    console.log("objects",objects)
+
   }
 
 // retrive
@@ -530,8 +549,17 @@ const updateval = (event) => {
           {statusmessages}
         </Alert>
       </Snackbar>
-        </div> 
-        :<Lodaing/>}
+      </div> 
+        :
+        <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={true}
+        // onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+        }
+         {/* :<Lodaing style={{width:"100%",height:"100%"}}/>} */}
           </div>
         </Grid>
 

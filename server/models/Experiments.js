@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   runID: {
     type: String,
-    unique: true,
+    // unique: true,
     index: true,
     sparse: true,
   },
@@ -42,7 +42,17 @@ shareWith:{
 },
 sharedDate:{
 type:Number,
-}
+},
+status:{
+  type:String,
+  required: true,
+  default: "Created",
+
+},
+assignedBy: {
+  type: String,
+ 
+},
 
 });
 

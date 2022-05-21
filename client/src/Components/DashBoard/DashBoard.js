@@ -18,7 +18,7 @@ import Alert from '@mui/material/Alert';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "80rem",
-    marginLeft: "5%",
+    marginLeft: 0,
     "& > * + *": {
       marginTop: theme.spacing(2),
     },

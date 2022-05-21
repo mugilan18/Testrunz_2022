@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const noteSchema = new Schema({
   runID: {
     type: String,
-    unique: true,
+    // unique: true,
     index: true,
     sparse: true,
   },

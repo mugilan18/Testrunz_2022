@@ -1,0 +1,6 @@
+.half { position: fixed; width: 50%; height: 50% }
+
+#NW { top: 0;   left: 200px;   background: orange }
+#NE { top: 0;   left: calc(50% + 100px); background: blue }
+#SW { top: 50%; left: 100px;   background: green }
+#SE { top: 50%; left: calc(50% ); background: red }

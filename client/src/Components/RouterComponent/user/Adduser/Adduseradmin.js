@@ -56,8 +56,8 @@ console.log(user)
 
   const createuser = (e) => {
     e.preventDefault();
-    setNameerror()
-    setEmailerror()
+    // setNameerror()
+    // setEmailerror()
     setRoleerror()
     console.log(name)
     console.log(email)
@@ -74,6 +74,12 @@ console.log(user)
     if (!name) {
       console.log("no name")
       setNameerror("*Name required*")
+    }
+    else if(nameerror){
+      console.log(nameerror)
+    }
+    else if(emailerror){
+      console.log(emailerror)
     }
     else if (!email) {
       console.log("no email")
@@ -141,9 +147,10 @@ console.log(user)
                   }
                 })
               //////////////
-              setEmail("")
-              setName("")
-              setRole("")
+              setEmail()
+              setName()
+              setRole()
+              setLab()
             })
             .catch((error) => {
               console.error('Error:', error);
@@ -178,12 +185,18 @@ console.log(user)
      <div>
       <label>Name:&nbsp;&nbsp;</label>
       <TextField
-        onChange={e => setName(e.target.value)}
         id="outlined-size-small"
         size="small"
         value={name}
+        onChange={(e) => {setName(e.target.value)
+          if(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~1234567890]/.test(e.target.value)){
+            setNameerror("*No Special Character Allowed*")
+          }
+          else {
+            setNameerror()
+          }
+        } }
       />
-      <br />
       <p className='errormsg'>{nameerror}</p>
       </div>
       <br/>

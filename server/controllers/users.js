@@ -171,6 +171,9 @@ console.log(key,value,id)
 
 const getaccess = async function (req, res, next) {
   role=req.body.role
+  department=req.body.department
+  collegeName=req.body.collegeName
+  console.log(collegeName)
  
   console.log(role)
   try {
@@ -179,11 +182,13 @@ const getaccess = async function (req, res, next) {
       res.json(updatedContent);
     }
     if(role==="admin"){
-      const updatedContent = await User.find({$or:[{role:"teacher"},{role:"student"}] });
+      // { $and: [{$or:[{role:"teacher"},{role:"student"}] }, { department:department }  ]}
+      const updatedContent = await User.find({ $and: [{$or:[{role:"teacher"},{role:"student"}] }, { department:department }, { collegeName:collegeName }]});
+      // const updatedContent = await User.find({$or:[{role:"teacher"},{role:"student"}] });
       res.json(updatedContent);
     }
     if(role==="teacher"){
-      const updatedContent = await User.find({role:"student"});
+      const updatedContent = await User.find({ $and:[{role:"student"},{department:department },{collegeName:collegeName}]});
       res.json(updatedContent);
     }
     

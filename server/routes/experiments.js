@@ -10,7 +10,10 @@ const {
   deleteUser,
   mailUser,
   removesharedUser,
-  getExpAllUsermail
+  getExpAllUsermail,
+  postBulkuser,
+  getExpBymail,
+  postspecificexp
   
 } = require("../controllers/experimentController");
 
@@ -24,10 +27,18 @@ router.post("/mypage", getExpAllUsermail);
 // @access public
 router.get("/:_id", getSingleUser);
 
+// group runz 
+router.post("/mypage2", getExpBymail);
 // @route POST /users/create
 // @desc a POST req for users registeration
 // @access public
 router.post("/", postUser);
+
+router.post("/bulk", postBulkuser);
+
+
+router.post("/specific", postspecificexp);
+
 
 router.post("/mail", mailUser);
 

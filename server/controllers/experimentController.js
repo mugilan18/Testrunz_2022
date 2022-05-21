@@ -3,11 +3,13 @@ const nodemailer = require('nodemailer')
 // load user model
 const User = require("../models/Experiments");
 
+const Usernames = require("../models/Users")
+
 // load validator
 const validateRegisterInput = require("../validation/register");
 
 const getExpAllUser = async function (req, res, next) {
-  // console.log("user id",req.params._id);
+  console.log("user id cj=jandjad",req.params._id);
   try {
     const users = await User.find({userid: req.params._id});
     /* 
@@ -21,7 +23,7 @@ const getExpAllUser = async function (req, res, next) {
         })
       ); */
     console.log("output",users.length);
-    res.json({ data: users, totalCount: users.length });
+    res.json({ data: users.reverse(), totalCount: users.length });
   } catch (err) {
     console.error(err);
   }
@@ -61,7 +63,7 @@ const getSingleUser = async function (req, res, next) {
   }
 };
 
-const postUser = (req, res, next) => {
+const postUser =async (req, res, next) => {
   console.log(req.body)
   const { errors, isValid } = validateRegisterInput(req.body);
 
@@ -69,7 +71,12 @@ const postUser = (req, res, next) => {
   if (!isValid) {
     return res.status(400).json(errors);
   }
-
+  try {
+    const user = await User.findOne({ $and: [  {userid: req.body.userId },  {experimentName: req.body.experimentName} ] } );
+    if (user) {
+      return res.json({"errors":"already created"});
+    }
+    else{
   //User.findOne()
   const newUser = new User({
     runID: uuidv4(),
@@ -83,8 +90,99 @@ const postUser = (req, res, next) => {
     .save()
     .then((user) => res.json(user))
     .catch((err) => console.error(err));
+    }
+  } catch (err) {
+    console.error(err);
+    res.json(err);
+  }
+  
+
 };
-// $pull: { fruits: { $in: [ "apples", "oranges" ] }, vegetables: "carrots"
+
+
+
+
+
+
+//post bulk user 
+const   postBulkuser =async (req, res, next) => {
+  console.log(req.body)
+      let email = req.body.email
+      let procedureDescription = req.body.procedureDescription
+      let labType = req.body.labType
+      let experimentName =  req.body.experimentName
+      let assignedby = req.body.assignedby
+      let count= req.body.email.length
+      let noname =[]
+      let validname =[]
+  try {
+    for (let i = 0; i < count; i++) {
+      console.log("individual",email[i])
+      const user = await Usernames .findOne({email:email[i]})
+      if(user){
+        const newUser = new User({
+            runID: uuidv4(),
+            studentName: user.name,
+            procedureDescription: procedureDescription,
+            labType:labType,
+            experimentName:experimentName,
+            userid: user._id,
+            status:"assigned",
+            assignedBy:assignedby
+          });
+          newUser
+            .save()
+            .then((user) => console.log("individual",newUser))
+            .catch((err) => console.error(err));
+            validname.push(email[i])
+      }
+      else{
+        noname.push(email[i])
+      }
+     
+    }
+    res.json({"sent":validname})
+    console.log("sent",validname)
+    console.log("unsent",noname)
+  }
+  // const { errors, isValid } = validateRegisterInput(req.body);
+
+  // // check validation
+  // if (!isValid) {
+  //   return res.status(400).json(errors);
+  // }
+  // try {
+  //   const user = await User.findOne({ $and: [  {userid: req.body.userId },  {experimentName: req.body.experimentName} ] } );
+  //   if (user) {
+  //     return res.json({"errors":"already created"});
+  //   }
+  //   else{
+  // //User.findOne()
+  // const newUser = new User({
+  //   runID: uuidv4(),
+  //   studentName: req.body.studentName,
+  //   procedureDescription: req.body.procedureDescription,
+  //   labType: req.body.labType,
+  //   experimentName: req.body.experimentName,
+  //   userid: req.body.userId
+  // });
+  // newUser
+  //   .save()
+  //   .then((user) => res.json(user))
+  //   .catch((err) => console.error(err));
+  //   }
+  // } 
+  catch (err) {
+    console.error(err);
+    res.json(err);
+  }
+  
+
+};
+
+
+
+// group mypage with department
 const patchUser = async (req, res) => {
   console.log("PATCH", req.body)
   try {
@@ -102,6 +200,36 @@ const patchUser = async (req, res) => {
       }
     );
     res.json(updatedUser); 
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+
+
+// $pull: { fruits: { $in: [ "apples", "oranges" ] }, vegetables: "carrots"
+const getExpBymail = async (req, res) => {
+  console.log("PATCH", req.body)
+  try {
+    const metas = await User.find({ $and: [ {shareWith: {$in: [req.body.email]}}, {assignedBy:req.body.email }  ] } )
+    // const metas = await User.aggregate( [
+    //     {$match:{ $and: [{ shareWith: req.body.email},{ assignedBy : { $ne: req.body.email
+    //   } } ] }
+         
+    //   } 
+    // ] );
+    // const ids = metas.map((obj) => obj);
+    // res.json({ ids});
+    // console.log( ids)
+
+  //   const metas = await User.aggregate( [
+  //     {$match:{ shareWith: req.body.email }}, 
+  //     {$group: { _id: "$labType" }}
+    
+  // ] );
+  const metasother = await User.find({ $and: [{ shareWith: req.body.email},{ assignedBy : { $ne: req.body.email } } ] })
+  res.json({ metas,metasother});
+  // console.log( ids)
   } catch (err) {
     console.error(err);
   }
@@ -155,6 +283,20 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const postspecificexp = async (req, res) => {
+  console.log(req.body)
+  let lab=req.body.lab
+  let email =req.body.email
+  let experiment =req.body.experiment
+  let college =req.body.college
+  try {
+    const metas= await User.find({ $and: [{ shareWith:email},{ assignedBy:email},{experimentName:experiment} ] })
+    res.json({metas})
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 
 const mailUser = async (req, res) => {
 console.log("mail content",req.body)
@@ -203,5 +345,9 @@ module.exports = {
   deleteUser,
   mailUser,
   removesharedUser,
-  getExpAllUsermail
+  getExpAllUsermail,
+  postBulkuser,
+  getExpBymail,
+  postspecificexp
+
 };

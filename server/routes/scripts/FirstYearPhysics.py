@@ -131,8 +131,8 @@ class FirstYPhysics:
         # resultJson={"x1":x1,"y1":y1,"titletext":titletext,"axisXtitle":axisXtitle,"axisYtitle":axisYtitle}
 
         # print(json.dumps({"ans":resultJson}))
-        print(json.dumps({"Lee":[{"Thickness of metalic disc" : str(h) + " m"}], "Vernier":[{"Thickness of the bad conductor" : str(D) + "m"}], "tickness":[{"Radius of the metalic disc" : str(r) + " m"}], "Thermal":[{"Thermal conductivity of a Poor Conductor" : str(K) + " ω/m/k"}]}))
-        
+        # print(json.dumps({"Lee":[{"Thickness of metalic disc" : str(h) + " m"}], "Vernier":[{"Thickness of the bad conductor" : str(D) + "m"}], "tickness":[{"Radius of the metalic disc" : str(r) + " m"}], "Thermal":[{"Thermal conductivity of a Poor Conductor" : str(K) + " ω/m/k"}]}))
+        print(json.dumps({"Coil":[{"Coil carrying current" : str(argument[3]) }] }))
     def Coil(self):
         argument = self.arg[0:]
         M = 0.0

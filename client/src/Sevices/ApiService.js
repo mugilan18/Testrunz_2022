@@ -26,6 +26,10 @@ class ApiService {
     return axios.post("" + USER_API_BASE_URL, user);
   }
 
+  addBulkuser(user) {
+    return axios.post("" + USER_API_BASE_URL+"/bulk", user);
+  }
+
   editUser(user) {
     return axios.patch(USER_API_BASE_URL + "/" + user._id, user);
   }

@@ -50,10 +50,12 @@ function Addusersuperadmin() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
+  const [emailerror, setEmailerror] = useState()
+  const [nameerror, setNameerror] = useState()
 
   const [checked, setChecked] = React.useState([]);
   const [left, setLeft] = React.useState();
-  const [right, setRight] = React.useState();
+  const [right, setRight] = React.useState([]);
   const [password, setPassword] = useState("")
   const leftChecked = intersection(checked, left);
   const rightChecked = intersection(checked, right);
@@ -90,6 +92,7 @@ function Addusersuperadmin() {
     console.log("heheheeh", aa)
     setDepartment(aa)
     setRight([])
+    setLeft()
     fetch(`${ApiUrl}/moreInfo/labs`, {
       method: "POST",
 
@@ -115,9 +118,7 @@ function Addusersuperadmin() {
 
     setCollege(aa)
     setDepartment()
-    setOptions2()
-    setOptions3()
-    setLeft()
+  
     fetch(`${ApiUrl}/moreInfo/department`, {
       method: "POST",
 
@@ -157,17 +158,19 @@ function Addusersuperadmin() {
       alert("no name")
       // setNameerror("*Name required*")
     }
+    else if(nameerror){
+      console.log("check name") 
+      }
     else if (!email) {
       alert("no email")
       // setEmailerror("*Email required*")
     }
+    else if(emailerror){
+    console.log("check mail id") 
+    }
     else if (!role) {
       alert("no role")
       // setRoleerror("*Role required*")
-    }
-    else if (!right.length) {
-      alert("no lab")
-      // setNameerror("*Name required*")
     }
     else if (!college) {
       alert("no college")
@@ -177,6 +180,12 @@ function Addusersuperadmin() {
       alert("no department")
       // setRoleerror("*Role required*")
     }
+    else if (!right.length) {
+      alert("no lab")
+      // setNameerror("*Name required*")
+    }
+    
+    
     else {
       let usermail = {
         name: name,
@@ -235,9 +244,13 @@ function Addusersuperadmin() {
                   }
                 })
               //////////////
-              setEmail("")
-              setName("")
-              setRole("")
+              setEmail()
+              setName()
+              setRole()
+              setCollege()
+              setDepartment()
+              setRight()
+              // setLab()
             })
             .catch((error) => {
               console.error('Error:', error);
@@ -268,117 +281,6 @@ function Addusersuperadmin() {
 
 
 
-  const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
-    } else {
-      newChecked.splice(currentIndex, 1);
-    }
-
-    setChecked(newChecked);
-  };
-
-  const numberOfChecked = (items) => intersection(checked, items).length;
-
-  const handleToggleAll = (items) => () => {
-    if (numberOfChecked(items) === items.length) {
-      setChecked(not(checked, items));
-    } else {
-      setChecked(union(checked, items));
-    }
-  };
-
-  const handleCheckedRight = () => {
-    setRight(right.concat(leftChecked));
-    setLeft(not(left, leftChecked));
-    setChecked(not(checked, leftChecked));
-  };
-
-  const handleCheckedLeft = () => {
-    setLeft(left.concat(rightChecked));
-    setRight(not(right, rightChecked));
-    setChecked(not(checked, rightChecked));
-  };
-
-
-
-  const customList = (title, items) => (
-    <Card>
-      <CardHeader
-        sx={{ px: 2, py: 1 }}
-        avatar={
-          <Checkbox
-            onClick={handleToggleAll(items)}
-            checked={numberOfChecked(items) === items.length && items.length !== 0}
-            indeterminate={
-              numberOfChecked(items) !== items.length && numberOfChecked(items) !== 0
-            }
-            disabled={items.length === 0}
-            inputProps={{
-              'aria-label': 'all items selected',
-            }}
-          />
-        }
-        title={title}
-        subheader={`${numberOfChecked(items)}/${items.length} selected`}
-      />
-      <Divider />
-      <List
-        sx={{
-          width: 320,
-          height: 230,
-          bgcolor: 'background.paper',
-          overflow: 'auto',
-        }}
-        dense
-        component="div"
-        role="list"
-      >
-        {items.map((value) => {
-          const labelId = `transfer-list-all-item-${value}-label`;
-
-          return (
-            <ListItem
-              key={value}
-              role="listitem"
-              button
-              onClick={handleToggle(value)}
-            >
-              <ListItemIcon>
-                <Checkbox
-                  checked={checked.indexOf(value) !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                  inputProps={{
-                    'aria-labelledby': labelId,
-                  }}
-                />
-              </ListItemIcon>
-              <ListItemText id={labelId} primary={value} />
-            </ListItem>
-          );
-        })}
-        <ListItem />
-      </List>
-    </Card>
-  );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
     <div >
 {/* <Grid
@@ -394,8 +296,16 @@ function Addusersuperadmin() {
         id="outlined-size-small"
         size="small"
         value={name}
-        onChange={(e) => setName(e.target.value)} 
+        onChange={(e) => {setName(e.target.value)
+          if(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~1234567890]/.test(e.target.value)){
+            setNameerror("*No Special Character Allowed*")
+          }
+          else {
+            setNameerror()
+          }
+        } }
       />
+      <p className='errormsg'>{nameerror}</p>
 </div> 
 <br/>
 
@@ -405,11 +315,18 @@ function Addusersuperadmin() {
       <TextField
         onChange={e => {
           setEmail(e.target.value)
+          if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)) {
+            setEmailerror()
+          }
+          else {
+            setEmailerror("*Invalid Email accounts*")
+          }
         }}
         id="outlined-size-small"
         size="small"
         value={email}
       />
+<p className='errormsg'>{emailerror}</p>
 </div>
 <br/>
 
@@ -418,8 +335,6 @@ function Addusersuperadmin() {
       <FormControl sx={{ m: 1, minWidth: 120 }} >
       
         <Select
-          // labelId="demo-simple-select-disabled-label"
-          // id="demo-simple-select-disabled"
           value={role}
           size="small"
           onChange={(e) => setRole(e.target.value)}
@@ -461,6 +376,7 @@ function Addusersuperadmin() {
         <>
           <label> Department :&nbsp;&nbsp;</label><br/><br/>
           <Autocomplete
+          size="small"
             value={department}
             onChange={(event, newValue) => {
               fetchlab(newValue)
@@ -481,34 +397,6 @@ function Addusersuperadmin() {
       {left ?
         <>
           <label> Labs :&nbsp;&nbsp;</label>
-          {/* <Grid container spacing={2} justifyContent="center" alignItems="center">
-            <Grid item>{customList('Choices', left)}</Grid>
-            <Grid item>
-              <Grid container direction="column" alignItems="center">
-                <Button
-                  sx={{ my: 0.5 }}
-                  variant="outlined"
-                  size="small"
-                  onClick={handleCheckedRight}
-                  disabled={leftChecked.length === 0}
-                  aria-label="move selected right"
-                >
-                  &gt;
-                </Button>
-                <Button
-                  sx={{ my: 0.5 }}
-                  variant="outlined"
-                  size="small"
-                  onClick={handleCheckedLeft}
-                  disabled={rightChecked.length === 0}
-                  aria-label="move selected left"
-                >
-                  &lt;
-                </Button>
-              </Grid>
-            </Grid>
-            <Grid item>{customList('Chosen', right)}</Grid>
-          </Grid> */}
            <Autocomplete
       multiple
       id="checkboxes-tags-demo"

@@ -42,24 +42,30 @@ const Signup = () => {
     e.preventDefault()
   console.log(email,name, password,confirmpassword)
   
-    setEmailerror()
-    setNameerror()
+    // setEmailerror()
+    // setNameerror()
     setPassworderror()
     setConfirmpassworderror()
-  if (name === ""||null ) {
+  if (!name ) {
       console.log("no name")
       setNameerror("*Name required*")
     }
-  else if (email === ""||null ) {
+    else if(nameerror){
+      console.log(nameerror)
+    }
+    else if(emailerror){
+      console.log(emailerror)
+    }
+  else if (!email) {
     console.log("no email")
     setEmailerror("*Email required*")
   } 
-  else if (password === ""||null ) {
+  else if (!password) {
     console.log("no password")
     setPassworderror("*Password required*")
   }
  
-  else if (confirmpassword === ""||null ) {
+  else if (!confirmpassword) {
     console.log("no cpassword")
     setConfirmpassworderror("*Confirm password required*")
   }
@@ -128,7 +134,14 @@ const Signup = () => {
                 <h2>Create an account</h2>
 
                 <input
-                  onChange={e => setName(e.target.value)}
+                  onChange={(e) => {setName(e.target.value)
+                    if(/[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~1234567890]/.test(e.target.value)){
+                      setNameerror("*No Special Character Allowed*")
+                    }
+                    else {
+                      setNameerror()
+                    }
+                  } }
                   type="text"
                   placeholder="Username"
                   value={name}
@@ -137,7 +150,15 @@ const Signup = () => {
                 <p className='errormsg'>{nameerror}</p>
 
                 <input
-                  onChange={e => setEmail(e.target.value)}
+                  onChange={e => {
+                    setEmail(e.target.value)
+                    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(e.target.value)) {
+                      setEmailerror()
+                    }
+                    else {
+                      setEmailerror("*Invalid Email account*")
+                    }
+                  }}
                   type="email"
                   placeholder="Email Address"
                   value={email}
