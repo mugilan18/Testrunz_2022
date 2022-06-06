@@ -89,8 +89,8 @@ const OuterNav = () => {
    alignItems="center"
  >
  
-     <Typography className={classes.pointer}>Documentation </Typography>
-     <Typography className={classes.pointer}>Support </Typography>
+     {/* <Typography className={classes.pointer}>Documentation </Typography>
+     <Typography className={classes.pointer}>Support </Typography> */}
      <Typography className={classes.pointer} onClick={()=>{window.location.href ='/#/signin'}}> Sign In </Typography>
      <Typography className={classes.pointer} onClick={()=>{window.location.href = '/#/signup'}}> Sign Up </Typography>
  
@@ -115,11 +115,11 @@ const OuterNav = () => {
            'aria-labelledby': 'basic-button',
          }}
        >
-         <MenuItem onClick={()=>{setAnchorEl(null)
+         {/* <MenuItem onClick={()=>{setAnchorEl(null)
     window.location.href = "/"}}>Documentation</MenuItem>
  
          <MenuItem onClick={()=>{setAnchorEl(null)
-     window.location.href = "/"}}>Support</MenuItem>
+     window.location.href = "/"}}>Support</MenuItem> */}
  
          <MenuItem onClick={()=>{setAnchorEl(null)
     window.location.href = "/#/signin"}}>Sign In</MenuItem>

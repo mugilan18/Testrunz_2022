@@ -1,60 +1,3 @@
-// import React from "react";
-// import { makeStyles } from "@material-ui/core/styles";
-// import Grid from "@material-ui/core/Grid";
-// import axios from "axios";
-// import Context from "../Context";
-// // import Graph from "../Graph/Graph";
-// import ApiUrl from "../../../ServerApi";
-// const useStyles = makeStyles({
-//   root: {
-//     width: "1000px",
-//   },
-//   paper: {},
-// });
-
-// const Observation = ({ data }) => {
-//   // let graph;
-//   // if (
-//   //   data.experimentName === "Lee's Disc Method" ||
-//   //   data.experimentName === "Polarimeter"
-//   // ) {
-//   //   graph = true;
-//   // } else {
-//   //   graph = false;
-//   // }
-//   const classes = useStyles();
-//   const [htmlContext, setHtmlContext] = React.useState(null);
-//   //console.log({ ...data });
-//   React.useEffect(() => {
-//     axios
-//       .get(`${ApiUrl}/procedures/search/${data.experimentName}`)
-//       .then((res) => {
-//         setHtmlContext((prev) => {
-//           if (prev === null) return res.data;
-//         });
-       
-//       });
-//   }, [data.experimentName]);
-  
-//   return (
-//     <>
-//       <Grid container className={classes.root} spacing={2}>
-//         <Grid item xs={7}>
-//           <div className={classes.paper}>
-//             <h1>Observation section</h1>
-//             <Context value={htmlContext} dataV={data} />
-//           </div>
-//         </Grid>
-//         {/* <Grid item xs={5}>
-//           <div className={classes.paper}>{graph && <Graph data={data} />}</div>
-//         </Grid> */}
-//       </Grid>
-//     </>
-//   );
-// };
-
-// export default Observation;
-
 
 import Grid from "@material-ui/core/Grid";
 
@@ -112,20 +55,20 @@ const Observation = ({ data ,datavalues }) => {
   const [accord, setAccord] = React.useState(false);
   const [output,setOutput]=React.useState({})
   const [data1, setData1] = React.useState({});
-  const [getgraph, setGetgraph] = React.useState(false);
+  // const [getgraph, setGetgraph] = React.useState(false);
   const vertical ="button"
   const horizontal = "center"
   let {token} = useParams();
 
   //console.log({ ...data });
   React.useEffect(() => {
-  console.log("data",data)
     axios
       .get(`${ApiUrl}/procedures/search/${data.experimentName}`)
       .then((res) => {
         // setHtmlContext((prev) => {
         //   if (prev === null) return res.data;
         // });
+        
         setHtmlContext(res.data);
         fetch(`${ApiUrl}/experiments/${token}`)
         .then((res)=>res.json())
@@ -431,23 +374,6 @@ const updateval = (event) => {
 
 
 
-const check=()=>{
-  // var tables = document.getElementsByTagName("table")[1];
-  var table = document.getElementsByTagName("table")[1].rows[0];
- 
-     
-        var row = "";
-
-        for (var j = 0; j < table.cells.length; j++) {
-          console.log(table.cells[j].innerHTML);
-            row += table.cells[j].innerHTML;
-            row += " | ";
-        }
-
-        console.log(row);
-        console.log(table);
-}
-
 
 
 
@@ -536,23 +462,21 @@ const check=()=>{
                 <BsFillCalculatorFill/>
                 </Button>
                 &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                <Button variant="contained"
+                {/* <Button variant="contained"
                 style={{ position: "relative", left: "40%", top: "2%", backgroundColor:"#F1C232",color:"black"}}
                 onClick={()=>setGetgraph(!getgraph)}
               >
                 Get Graph &nbsp;&nbsp;&nbsp;
                 <BsFillCalculatorFill/>
-                </Button>
-                <Button onClick={check}>
-                  check
-                </Button>
+                </Button> */}
+              
           </div>
-          <div>
+          {/* <div>
             {getgraph &&
             <Graph/>
 
             }
-          </div>
+          </div> */}
           <br /><br />
           <Accordion  expanded={accord}>
             <AccordionSummary

@@ -117,6 +117,7 @@ const Signin = () => {
                   type="email"
                   value={email}
                   placeholder="Email"
+                  id="email"
                 />
                 <input
                 style={{  borderStyle:passworderror?"solid" :"none",
@@ -128,9 +129,10 @@ const Signin = () => {
                   type="password"
                   placeholder="Password"
                   value={password}
+                  id="password"
                 />
                 
-                <Button  variant="contained"  style={{background:"#3F51B"}} onClick={authsignin}>Submit</Button>
+                <Button  variant="contained" id="submit" style={{background:"#3F51B"}} onClick={authsignin}>Submit</Button>
             
                 <br/>
                 <div className='divider'><strong className="or">or</strong> </div>

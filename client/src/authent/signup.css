@@ -10,7 +10,7 @@
 section {
   position: relative;
   min-height: calc(100vh - 65px);
-  background-color: whitesmoke;
+  /* background-color: whitesmoke; */
   display: flex;
   justify-content: center;
   align-items: center;

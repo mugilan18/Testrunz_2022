@@ -45,6 +45,7 @@
     "jspdf": "^2.5.0",
     "material-table": "^1.69.3",
     "morgan": "^1.10.0",
+    "mqtt": "^4.3.7",
     "nanoid": "^3.1.23",
     "node-json2html": "^2.2.0",
     "nodemon": "^2.0.7",

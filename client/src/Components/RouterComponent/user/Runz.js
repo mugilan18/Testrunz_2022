@@ -28,7 +28,7 @@ import MaterialTable from 'material-table';
 
 import {FaRegEdit} from 'react-icons/fa';
 import {RiShareForwardFill} from 'react-icons/ri';
-
+import Box from '@mui/material/Box';
 import Loading from "./Lodaing"
 import { Button } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
@@ -65,8 +65,8 @@ const customStyles = {
   content: {
     top: "50%",
     left: "50%",
-    width: "50%",
-    height: "55%",
+    width: "100%",
+    height: "100%",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
@@ -89,6 +89,19 @@ const customStylesshare = {
   },
 };
 
+const boxstyle = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 600,
+  height:700,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  // overflowY:'scroll',
+  p: 4,
+};
 
 const customStylescell = {
   content: {
@@ -300,7 +313,10 @@ individuals.map((userr, ident) => {
         sx={{ overflow: 'hidden' }}
         
       >
+        <Box sx={boxstyle}>
+
         <AddUserComponentadmin closeModal={closeModal} />
+        </Box>
       </Modal>
 :
       <Modal

@@ -74,7 +74,7 @@ const drawerWidth= 200
      
       });
       
-
+ 
 
 
 
@@ -199,7 +199,7 @@ const Sidelayout = ({children}) => {
         {/* :null */}
 {/* } */}
 
-
+{/* 
 {user.role==="student"?  null: 
         <ListItem 
          button 
@@ -210,9 +210,9 @@ const Sidelayout = ({children}) => {
             <ListItemText primary="Inventory"/>
         </ListItem>
                
- } 
+ }  */}
 
-        <ListItem 
+        {/* <ListItem 
          button 
         key="Add User"
         onClick={()=>history.push("/adduser")}
@@ -220,7 +220,7 @@ const Sidelayout = ({children}) => {
             <ListItemIcon><PersonAddIcon/></ListItemIcon>
             <ListItemText primary="Add User"/>
         </ListItem>
-
+ */}
 
 
     <br/>

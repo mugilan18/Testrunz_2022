@@ -14,9 +14,9 @@ import AdminFeedback from "./user/AdminFeedback"
 import Signup from "../../authent/Signup";
 import Signin from "../../authent/Signin";
 import Forgot from "../../authent/forgot";
-import Adduser from "./user/Adduser/Adduser";
-import Manageindividualuser from "./user/Settingstab/Manage/Manageindividualuser";
-import Manageindividual2 from "./user/Settingstab/Manage/Manageindividual2";
+// import Adduser from "./user/Adduser/Adduser";
+// import Manageindividualuser from "./user/Settingstab/Manage/Manageindividualuser";
+// import Manageindividual2 from "./user/Settingstab/Manage/Manageindividual2";
 import Sidelayout from "./user/Sidelayout"
 import Private from "../../core/private";
 
@@ -74,8 +74,8 @@ const RouterComponent = (props) => {
             <PrivateRoute path="/settings" exact component={Settings} auth={props.user}/> 
             <PrivateRoute path="/support" exact component={Support} auth={props.user}/> 
             <PrivateRoute path="/add-user" exact component={AddUserComponent} auth={props.user}/>
-            <PrivateRoute path="/adduser" exact component={Adduser} auth={props.user}/>
-            <PrivateRoute path="/inventory" exact component={Inventory} auth={props.user}/>
+            {/* <PrivateRoute path="/adduser" exact component={Adduser} auth={props.user}/>
+            <PrivateRoute path="/inventory" exact component={Inventory} auth={props.user}/> */}
             <PrivateRoute path="/app/:id" exact component={Lablist} auth={props.user}/>
             <PrivateRoute path="/app/:id/:exp" exact component={Assignedlist} auth={props.user}/>
 
@@ -108,16 +108,16 @@ const RouterComponent = (props) => {
               exact
               component={EditProcedure}
             />
-              <PrivateRoute
+              {/* <PrivateRoute
               path="/manageuser/:token"
               exact
               component={Manageindividualuser}
-            />
-            <AdminRoute
+            /> */}
+            {/* <AdminRoute
               path="/manageuseradmin/:token"
               exact
               component={Manageindividual2}
-            />
+            /> */}
           </Switch>
           </Sidelayout>
         </Router>
