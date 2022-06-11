@@ -95,7 +95,7 @@ const boxstyle = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 600,
-  height:700,
+  height:500,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -328,7 +328,10 @@ individuals.map((userr, ident) => {
         sx={{ overflow: 'hidden' }}
         
       >
+         <Box sx={boxstyle}>
+
         <AddUserComponent closeModal={closeModal} />
+         </Box>
       </Modal>
 }
 

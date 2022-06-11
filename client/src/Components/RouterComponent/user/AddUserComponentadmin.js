@@ -21,9 +21,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     "& > * + *": {
-      marginTop: theme.spacing(2),
+      marginTop: theme.spacing(1),
       zIndex: "200%",
-      padding: "1%", height: "40%"
+      padding: "1%", 
+      height: "10%"
     },
   },
 }));
@@ -36,7 +37,7 @@ const formContainer = {
 };
 
 const style = {
-  marginTop: "60px",
+  marginTop: "30px",
   display: "flex",
   justifyContent: "center",
 };

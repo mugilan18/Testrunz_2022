@@ -36,7 +36,7 @@ const formContainer = {
 };
 
 const style = {
-  marginTop: "60px",
+  marginTop: "30px",
   display: "flex",
   justifyContent: "center",
 };
